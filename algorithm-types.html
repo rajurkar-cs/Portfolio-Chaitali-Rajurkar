@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Algorithm Taxonomy | Chaitali Rajurkar</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
   <style>
@@ -23,8 +23,9 @@
 
     header h1 {
       font-size: 2.2rem;
-      font-weight: bold;
+      font-weight: 700;
       margin-bottom: 0.5rem;
+      line-height: 1.2;
     }
 
     header p {
@@ -43,9 +44,9 @@
     .content-section {
       background-color: #ffffff;
       border-radius: 0.5rem;
-      padding: 2rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      margin-bottom: 2rem;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1);
+      margin-bottom: 2.5rem;
     }
 
     table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.95rem; }
@@ -55,6 +56,22 @@
 
     footer {
       background-color: #f8fafc;
+    }
+    
+    /* Custom CSS for the tree connector line */
+    .tree-line::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background-color: #e2e8f0;
+      transform: translateX(-50%);
+      z-index: 0;
+    }
+    @media (max-width: 768px) {
+      .tree-line::before { display: none; }
     }
   </style>
 </head>
@@ -71,58 +88,122 @@
     
     <div class="content-section">
       <h2 class="section-title">Algorithm Relationship Map</h2>
-      <p class="mb-6 text-gray-700">This framework illustrates the hierarchical relationship between learning paradigms, application domains, and specific algorithms.</p>
+      <p class="mb-10 text-gray-600">This framework illustrates the hierarchical relationship between learning paradigms, application domains, and specific algorithms.</p>
       
-      <div class="flex flex-col md:flex-row gap-6">
-
-        <div class="flex-1 border-2 border-blue-200 bg-blue-50 rounded-lg p-5 shadow-sm">
-          <h3 class="text-xl font-bold text-blue-900 text-center mb-4 border-b-2 border-blue-200 pb-2">Supervised Learning</h3>
-
-          <div class="mb-5">
-            <h4 class="text-sm font-bold text-blue-700 mb-2 uppercase tracking-wide">📊 Tabular Data</h4>
-            <div class="flex flex-col gap-2 pl-4 border-l-2 border-blue-300">
-              <div class="bg-white border border-blue-200 p-3 rounded shadow-sm font-medium text-gray-800 hover:shadow-md transition">1. Random Forest</div>
-              <div class="bg-white border border-blue-200 p-3 rounded shadow-sm font-medium text-gray-800 hover:shadow-md transition">2. Gradient Boosting (XGBoost)</div>
-            </div>
-          </div>
-
-          <div class="mb-5">
-            <h4 class="text-sm font-bold text-blue-700 mb-2 uppercase tracking-wide">👁️ Computer Vision</h4>
-            <div class="flex flex-col gap-2 pl-4 border-l-2 border-blue-300">
-              <div class="bg-white border border-blue-200 p-3 rounded shadow-sm font-medium text-gray-800 hover:shadow-md transition">3. Convolutional Neural Networks (CNNs)</div>
-              <div class="bg-white border border-blue-200 p-3 rounded shadow-sm font-medium text-gray-800 hover:shadow-md transition">4. YOLO - Object Detection</div>
-            </div>
-          </div>
-
-          <div>
-            <h4 class="text-sm font-bold text-blue-700 mb-2 uppercase tracking-wide">💬 Natural Language Processing</h4>
-            <div class="flex flex-col gap-2 pl-4 border-l-2 border-blue-300">
-              <div class="bg-white border border-blue-200 p-3 rounded shadow-sm font-medium text-gray-800 hover:shadow-md transition">5. BERT - Text Classification</div>
-            </div>
+      <div class="bg-gray-50 rounded-xl p-6 md:p-10 border border-gray-100 shadow-inner relative overflow-hidden">
+        
+        <div class="text-center mb-12 relative z-10">
+          <div class="inline-block px-8 py-3 bg-gray-800 text-white font-bold rounded-full text-sm tracking-widest uppercase shadow-lg border-2 border-gray-700">
+            Machine Learning Algorithms
           </div>
         </div>
 
-        <div class="flex-1 border-2 border-indigo-200 bg-indigo-50 rounded-lg p-5 shadow-sm">
-          <h3 class="text-xl font-bold text-indigo-900 text-center mb-4 border-b-2 border-indigo-200 pb-2">Unsupervised / Self-Supervised</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 relative tree-line">
+          
+          <div class="relative z-10">
+            <div class="flex justify-center mb-8">
+              <h3 class="px-6 py-2 bg-gradient-to-r from-teal-500 to-emerald-600 text-white text-lg font-bold rounded-full shadow-md">
+                Supervised Learning
+              </h3>
+            </div>
 
-          <div class="mb-5">
-            <h4 class="text-sm font-bold text-indigo-700 mb-2 uppercase tracking-wide">📊 Tabular Data</h4>
-            <div class="flex flex-col gap-2 pl-4 border-l-2 border-indigo-300">
-              <div class="bg-white border border-indigo-200 p-3 rounded shadow-sm font-medium text-gray-800 hover:shadow-md transition">6. K-Means Clustering</div>
-              <div class="bg-white border border-indigo-200 p-3 rounded shadow-sm font-medium text-gray-800 hover:shadow-md transition">7. Principal Component Analysis (PCA)</div>
+            <div class="space-y-6">
+              <div class="bg-white rounded-lg p-5 border border-teal-100 shadow-sm">
+                <div class="flex items-center gap-2 mb-4 border-b border-gray-100 pb-2">
+                  <span class="text-xl">📊</span>
+                  <h4 class="font-bold text-gray-800 uppercase text-sm tracking-wide">Tabular Data</h4>
+                </div>
+                <div class="space-y-3">
+                  <div class="p-3 bg-teal-50 text-teal-900 rounded-md font-medium text-sm border-l-4 border-teal-500 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-md cursor-default">
+                    <strong>1. Random Forest</strong>
+                  </div>
+                  <div class="p-3 bg-teal-50 text-teal-900 rounded-md font-medium text-sm border-l-4 border-teal-500 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-md cursor-default">
+                    <strong>2. XGBoost</strong><br>
+                    <span class="text-xs font-normal opacity-80">(eXtreme Gradient Boosting)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white rounded-lg p-5 border border-teal-100 shadow-sm">
+                <div class="flex items-center gap-2 mb-4 border-b border-gray-100 pb-2">
+                  <span class="text-xl">👁️</span>
+                  <h4 class="font-bold text-gray-800 uppercase text-sm tracking-wide">Computer Vision</h4>
+                </div>
+                <div class="space-y-3">
+                  <div class="p-3 bg-teal-50 text-teal-900 rounded-md font-medium text-sm border-l-4 border-teal-500 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-md cursor-default">
+                    <strong>3. CNNs</strong><br>
+                    <span class="text-xs font-normal opacity-80">(Convolutional Neural Networks)</span>
+                  </div>
+                  <div class="p-3 bg-teal-50 text-teal-900 rounded-md font-medium text-sm border-l-4 border-teal-500 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-md cursor-default">
+                    <strong>4. YOLO</strong><br>
+                    <span class="text-xs font-normal opacity-80">(You Only Look Once) - Object Detection</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white rounded-lg p-5 border border-teal-100 shadow-sm">
+                <div class="flex items-center gap-2 mb-4 border-b border-gray-100 pb-2">
+                  <span class="text-xl">💬</span>
+                  <h4 class="font-bold text-gray-800 uppercase text-sm tracking-wide">Natural Language Processing</h4>
+                </div>
+                <div class="space-y-3">
+                  <div class="p-3 bg-teal-50 text-teal-900 rounded-md font-medium text-sm border-l-4 border-teal-500 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-md cursor-default">
+                    <strong>5. BERT</strong><br>
+                    <span class="text-xs font-normal opacity-80">(Bidirectional Encoder Representations from Transformers)</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div>
-            <h4 class="text-sm font-bold text-indigo-700 mb-2 uppercase tracking-wide">✨ Generative AI</h4>
-            <div class="flex flex-col gap-2 pl-4 border-l-2 border-indigo-300">
-              <div class="bg-white border border-indigo-200 p-3 rounded shadow-sm font-medium text-gray-800 hover:shadow-md transition">8. Generative Adversarial Networks (GANs)</div>
-              <div class="bg-white border border-indigo-200 p-3 rounded shadow-sm font-medium text-gray-800 hover:shadow-md transition">9. Diffusion Models (Stable Diffusion)</div>
-              <div class="bg-white border border-indigo-200 p-3 rounded shadow-sm font-medium text-gray-800 hover:shadow-md transition">10. GPT - Transformer Models</div>
+          <div class="relative z-10">
+            <div class="flex justify-center mb-8">
+              <h3 class="px-6 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white text-lg font-bold rounded-full shadow-md">
+                Unsupervised / Self-Supervised
+              </h3>
+            </div>
+
+            <div class="space-y-6">
+              <div class="bg-white rounded-lg p-5 border border-indigo-100 shadow-sm">
+                <div class="flex items-center gap-2 mb-4 border-b border-gray-100 pb-2">
+                  <span class="text-xl">📊</span>
+                  <h4 class="font-bold text-gray-800 uppercase text-sm tracking-wide">Tabular Data</h4>
+                </div>
+                <div class="space-y-3">
+                  <div class="p-3 bg-indigo-50 text-indigo-900 rounded-md font-medium text-sm border-l-4 border-indigo-500 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-md cursor-default">
+                    <strong>6. K-Means Clustering</strong>
+                  </div>
+                  <div class="p-3 bg-indigo-50 text-indigo-900 rounded-md font-medium text-sm border-l-4 border-indigo-500 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-md cursor-default">
+                    <strong>7. PCA</strong><br>
+                    <span class="text-xs font-normal opacity-80">(Principal Component Analysis)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white rounded-lg p-5 border border-indigo-100 shadow-sm">
+                <div class="flex items-center gap-2 mb-4 border-b border-gray-100 pb-2">
+                  <span class="text-xl">✨</span>
+                  <h4 class="font-bold text-gray-800 uppercase text-sm tracking-wide">Generative AI</h4>
+                </div>
+                <div class="space-y-3">
+                  <div class="p-3 bg-indigo-50 text-indigo-900 rounded-md font-medium text-sm border-l-4 border-indigo-500 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-md cursor-default">
+                    <strong>8. GANs</strong><br>
+                    <span class="text-xs font-normal opacity-80">(Generative Adversarial Networks)</span>
+                  </div>
+                  <div class="p-3 bg-indigo-50 text-indigo-900 rounded-md font-medium text-sm border-l-4 border-indigo-500 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-md cursor-default">
+                    <strong>9. Diffusion Models</strong><br>
+                    <span class="text-xs font-normal opacity-80">(e.g., Stable Diffusion)</span>
+                  </div>
+                  <div class="p-3 bg-indigo-50 text-indigo-900 rounded-md font-medium text-sm border-l-4 border-indigo-500 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-md cursor-default">
+                    <strong>10. GPT</strong><br>
+                    <span class="text-xs font-normal opacity-80">(Generative Pre-trained Transformer)</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+
         </div>
-
       </div>
     </div>
 
@@ -148,28 +229,28 @@
               <td>Predicting customer churn rates or loan defaults based on historical banking data.</td>
             </tr>
             <tr>
-              <td><strong>2. Gradient Boosting (XGBoost)</strong></td>
+              <td><strong>2. XGBoost</strong><br><span style="font-size: 0.85em; font-weight: normal;">(eXtreme Gradient Boosting)</span></td>
               <td>Supervised</td>
               <td>Tabular Data</td>
               <td>Sequentially builds decision trees, where each new tree corrects the errors of the previous ones.</td>
               <td>High-frequency financial trading and dynamic pricing models.</td>
             </tr>
             <tr>
-              <td><strong>3. CNNs</strong></td>
+              <td><strong>3. CNNs</strong><br><span style="font-size: 0.85em; font-weight: normal;">(Convolutional Neural Networks)</span></td>
               <td>Supervised</td>
               <td>Computer Vision</td>
               <td>Uses spatial "filters" to scan images pixel-by-pixel, identifying basic features and combining them into complex patterns.</td>
               <td>Medical imaging analysis, such as detecting tumors in MRI scans.</td>
             </tr>
             <tr>
-              <td><strong>4. YOLO</strong></td>
+              <td><strong>4. YOLO</strong><br><span style="font-size: 0.85em; font-weight: normal;">(You Only Look Once)</span></td>
               <td>Supervised</td>
               <td>Computer Vision</td>
               <td>Passes an image through a neural network a single time to instantly predict bounding boxes and object probabilities.</td>
               <td>Real-time object detection for autonomous driving systems.</td>
             </tr>
             <tr>
-              <td><strong>5. BERT</strong></td>
+              <td><strong>5. BERT</strong><br><span style="font-size: 0.85em; font-weight: normal;">(Bidirectional Encoder Representations from Transformers)</span></td>
               <td>Supervised</td>
               <td>NLP</td>
               <td>Reads entire sequences of text simultaneously to understand the deep contextual meaning of words based on their surroundings.</td>
@@ -183,47 +264,11 @@
               <td>Market segmentation, grouping e-commerce customers by purchasing behavior.</td>
             </tr>
             <tr>
-              <td><strong>7. PCA</strong></td>
+              <td><strong>7. PCA</strong><br><span style="font-size: 0.85em; font-weight: normal;">(Principal Component Analysis)</span></td>
               <td>Unsupervised</td>
               <td>Tabular Data</td>
               <td>A dimensionality reduction technique that compresses datasets down to the most critical features while retaining core variance.</td>
               <td>Compressing images before applying predictive models.</td>
             </tr>
             <tr>
-              <td><strong>8. GANs</strong></td>
-              <td>Unsupervised</td>
-              <td>Generative AI</td>
-              <td>Pits two neural networks against each other: a "Generator" creates fake data, and a "Discriminator" tries to catch the fakes.</td>
-              <td>Generating highly realistic synthetic training data for scenarios where real data is scarce.</td>
-            </tr>
-            <tr>
-              <td><strong>9. Diffusion Models</strong></td>
-              <td>Unsupervised</td>
-              <td>Generative AI</td>
-              <td>Progressively adds noise to an image until it is destroyed, then learns how to reverse the process to generate new images.</td>
-              <td>Creating high-quality digital art or marketing assets from text prompts.</td>
-            </tr>
-            <tr>
-              <td><strong>10. GPT</strong></td>
-              <td>Self-Supervised</td>
-              <td>GenAI / NLP</td>
-              <td>Uses self-attention mechanisms on massive text datasets to predict the most statistically probable next word in a sequence.</td>
-              <td>Powering conversational agents, generating code, and automating complex writing tasks.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="text-left mt-6">
-      <a href="index.html" class="text-blue-600 hover:underline">&larr; Back to Portfolio Home</a>
-    </div>
-
-  </main>
-
-  <footer class="text-center p-4 mt-12 border-t text-sm text-gray-500">
-    &copy; 2026 Chaitali Rajurkar. All rights reserved.
-  </footer>
-
-</body>
-</html>
+              <td><strong>8. GANs</strong><br><span style="font-size: 0.85em; font-weight: normal;">(Generative Adversarial
