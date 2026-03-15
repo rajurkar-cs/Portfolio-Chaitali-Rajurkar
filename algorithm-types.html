@@ -2,158 +2,203 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Artifact 1: Algorithm Taxonomy | Chaitali Rajurkar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Algorithm Taxonomy | Chaitali Rajurkar</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-  <script>mermaid.initialize({startOnLoad:true});</script>
   
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Poppins', sans-serif; line-height: 1.6; color: #333; background-color: #f9f9f9; }
-    
-    .nav-header {
-      background: linear-gradient(to bottom right, #003c5f, #001e2e);
-      padding: 1rem 5%;
-    }
-    .nav-header a { color: #00d4ff; text-decoration: none; font-weight: 600; }
-    .nav-header a:hover { text-decoration: underline; }
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'default' });</script>
 
-    section { padding: 4rem 10%; background-color: #fff; margin: 2rem 5%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-    .section-title { font-size: 2rem; font-weight: 600; margin-bottom: 2rem; color: #003c5f; text-align: center; }
-    
-    .mermaid { display: flex; justify-content: center; margin: 3rem 0; }
-    
-    table { width: 100%; border-collapse: collapse; margin-top: 2rem; font-size: 0.95rem; }
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+
+    header {
+      background: linear-gradient(to bottom right, #003c5f, #001e2e);
+      color: white;
+      padding: 3rem 10%;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      margin: 0;
+      color: #cbd5e0;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #003c5f;
+    }
+
+    .content-section {
+      background-color: #ffffff;
+      border-radius: 0.5rem;
+      padding: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+
+    /* Table Styling you liked */
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.95rem; }
     th, td { padding: 1rem; border: 1px solid #e2e8f0; text-align: left; }
     th { background-color: #003c5f; color: white; font-weight: 600; }
     tr:nth-child(even) { background-color: #f8fafc; }
+
+    footer {
+      background-color: #f8fafc;
+    }
   </style>
 </head>
 <body>
 
-  <header class="nav-header">
-    <a href="index.html">← Back to Portfolio</a>
+  <header>
+    <div class="max-w-5xl mx-auto">
+      <h1>Machine Learning Algorithm Taxonomy: A Visual Framework</h1>
+      <p>A high-level architectural map categorizing core machine learning algorithms across learning styles and domains.</p>
+    </div>
   </header>
 
-  <section>
-    <h1 class="section-title">Machine Learning Algorithm Taxonomy: A Visual Framework</h1>
-    <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem auto; color: #555;">
-      This portfolio artifact serves as a high-level architectural map of core machine learning algorithms, categorized by their fundamental learning styles and primary application domains.
-    </p>
+  <main class="max-w-5xl mx-auto px-4 py-10">
+    
+    <div class="content-section">
+      <h2 class="section-title">Algorithm Relationship Map</h2>
+      <p class="mb-6 text-gray-700">This flowchart illustrates the hierarchical relationship between learning paradigms, application domains, and specific algorithms.</p>
+      
+      <div class="overflow-x-auto pb-4">
+        <div class="mermaid" style="min-width: 900px; display: flex; justify-content: center;">
+          graph TD
+            ML[Machine Learning Algorithms] --> Sup[Supervised Learning]
+            ML --> Unsup[Unsupervised / Self-Supervised]
 
-    <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 3rem; color: #003c5f;">Algorithm Relationship Map</h2>
-    <div class="mermaid">
-      graph TD
-        ML[Machine Learning Algorithms] --> Sup[Supervised Learning]
-        ML --> Unsup[Unsupervised / Self-Supervised]
+            Sup --> Tab1[Tabular Data]
+            Sup --> CV1[Computer Vision]
+            Sup --> NLP1[Natural Language Processing]
 
-        Sup --> Tab1[Tabular Data]
-        Sup --> CV1[Computer Vision]
-        Sup --> NLP1[Natural Language Processing]
+            Unsup --> Tab2[Tabular Data]
+            Unsup --> GenAI[Generative AI]
 
-        Unsup --> Tab2[Tabular Data]
-        Unsup --> GenAI[Generative AI]
+            Tab1 --> RF[1. Random Forest]
+            Tab1 --> XGB[2. Gradient Boosting / XGBoost]
+            CV1 --> CNN[3. Convolutional Neural Networks]
+            CV1 --> YOLO[4. YOLO - Object Detection]
+            NLP1 --> BERT[5. BERT - Text Classification]
 
-        Tab1 --> RF[1. Random Forest]
-        Tab1 --> XGB[2. Gradient Boosting / XGBoost]
-        CV1 --> CNN[3. Convolutional Neural Networks]
-        CV1 --> YOLO[4. YOLO - Object Detection]
-        NLP1 --> BERT[5. BERT - Text Classification]
-
-        Tab2 --> KMeans[6. K-Means Clustering]
-        Tab2 --> PCA[7. Principal Component Analysis]
-        GenAI --> GAN[8. Generative Adversarial Networks]
-        GenAI --> Diff[9. Diffusion Models]
-        GenAI --> GPT[10. GPT - Transformer Models]
+            Tab2 --> KMeans[6. K-Means Clustering]
+            Tab2 --> PCA[7. Principal Component Analysis]
+            GenAI --> GAN[8. Generative Adversarial Networks]
+            GenAI --> Diff[9. Diffusion Models]
+            GenAI --> GPT[10. GPT - Transformer Models]
+        </div>
+      </div>
     </div>
 
-    <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 4rem; color: #003c5f;">Detailed Algorithm Classification Matrix</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Algorithm</th>
-          <th>Learning Type</th>
-          <th>Primary Domain</th>
-          <th>Brief Explanation</th>
-          <th>Real-World Use Case</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>1. Random Forest</strong></td>
-          <td>Supervised</td>
-          <td>Tabular Data</td>
-          <td>Builds an "ensemble" of multiple decision trees and averages their predictions to prevent overfitting.</td>
-          <td>Predicting customer churn rates or loan defaults based on historical banking data.</td>
-        </tr>
-        <tr>
-          <td><strong>2. Gradient Boosting (XGBoost)</strong></td>
-          <td>Supervised</td>
-          <td>Tabular Data</td>
-          <td>Sequentially builds decision trees, where each new tree focuses specifically on correcting the errors of the previous ones.</td>
-          <td>High-frequency financial trading and dynamic pricing models.</td>
-        </tr>
-        <tr>
-          <td><strong>3. Convolutional Neural Networks (CNNs)</strong></td>
-          <td>Supervised</td>
-          <td>Computer Vision</td>
-          <td>Uses spatial "filters" to scan images pixel-by-pixel, identifying basic features and combining them into complex patterns.</td>
-          <td>Medical imaging analysis, such as detecting tumors in MRI scans.</td>
-        </tr>
-        <tr>
-          <td><strong>4. YOLO (You Only Look Once)</strong></td>
-          <td>Supervised</td>
-          <td>Computer Vision</td>
-          <td>Passes an image through a neural network only a single time to instantly predict bounding boxes and object probabilities.</td>
-          <td>Real-time object detection for autonomous driving systems.</td>
-        </tr>
-        <tr>
-          <td><strong>5. BERT</strong></td>
-          <td>Supervised</td>
-          <td>NLP</td>
-          <td>Reads entire sequences of text simultaneously to understand the deep contextual meaning of words based on their surroundings.</td>
-          <td>Google Search query understanding and automated sentiment analysis.</td>
-        </tr>
-        <tr>
-          <td><strong>6. K-Means Clustering</strong></td>
-          <td>Unsupervised</td>
-          <td>Tabular Data</td>
-          <td>Partitions unlabeled data into 'K' distinct groups by calculating the spatial distance between data points.</td>
-          <td>Market segmentation, grouping e-commerce customers by purchasing behavior.</td>
-        </tr>
-        <tr>
-          <td><strong>7. Principal Component Analysis (PCA)</strong></td>
-          <td>Unsupervised</td>
-          <td>Tabular Data</td>
-          <td>A dimensionality reduction technique that compresses datasets down to the most critical features while retaining core variance.</td>
-          <td>Compressing images before applying predictive models.</td>
-        </tr>
-        <tr>
-          <td><strong>8. Generative Adversarial Networks (GANs)</strong></td>
-          <td>Unsupervised</td>
-          <td>Generative AI</td>
-          <td>Pits two neural networks against each other: a "Generator" creates fake data, and a "Discriminator" tries to catch the fakes.</td>
-          <td>Generating highly realistic synthetic training data for scenarios where real data is scarce.</td>
-        </tr>
-        <tr>
-          <td><strong>9. Diffusion Models (Stable Diffusion)</strong></td>
-          <td>Unsupervised</td>
-          <td>Generative AI</td>
-          <td>Progressively adds noise to an image until it is destroyed, then learns how to reverse the process to generate new images.</td>
-          <td>Creating high-quality digital art or marketing assets from text prompts.</td>
-        </tr>
-        <tr>
-          <td><strong>10. GPT (Transformers)</strong></td>
-          <td>Self-Supervised</td>
-          <td>GenAI / NLP</td>
-          <td>Uses self-attention mechanisms on massive text datasets to predict the most statistically probable next word in a sequence.</td>
-          <td>Powering conversational agents, generating code, and automating complex writing tasks.</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+    <div class="content-section">
+      <h2 class="section-title">Detailed Algorithm Classification Matrix</h2>
+      <div class="overflow-x-auto mb-4">
+        <table>
+          <thead>
+            <tr>
+              <th>Algorithm</th>
+              <th>Learning Type</th>
+              <th>Primary Domain</th>
+              <th>Brief Explanation</th>
+              <th>Real-World Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Random Forest</strong></td>
+              <td>Supervised</td>
+              <td>Tabular Data</td>
+              <td>Builds an "ensemble" of multiple decision trees and averages predictions to prevent overfitting.</td>
+              <td>Predicting customer churn rates or loan defaults based on historical banking data.</td>
+            </tr>
+            <tr>
+              <td><strong>2. Gradient Boosting (XGBoost)</strong></td>
+              <td>Supervised</td>
+              <td>Tabular Data</td>
+              <td>Sequentially builds decision trees, where each new tree corrects the errors of the previous ones.</td>
+              <td>High-frequency financial trading and dynamic pricing models (e.g., Uber surge pricing).</td>
+            </tr>
+            <tr>
+              <td><strong>3. CNNs</strong></td>
+              <td>Supervised</td>
+              <td>Computer Vision</td>
+              <td>Uses spatial "filters" to scan images pixel-by-pixel, identifying basic features and combining them into complex patterns.</td>
+              <td>Medical imaging analysis, such as detecting tumors in MRI scans.</td>
+            </tr>
+            <tr>
+              <td><strong>4. YOLO</strong></td>
+              <td>Supervised</td>
+              <td>Computer Vision</td>
+              <td>Passes an image through a neural network a single time to instantly predict bounding boxes and object probabilities.</td>
+              <td>Real-time object detection for autonomous driving systems.</td>
+            </tr>
+            <tr>
+              <td><strong>5. BERT</strong></td>
+              <td>Supervised</td>
+              <td>NLP</td>
+              <td>Reads entire sequences of text simultaneously to understand the deep contextual meaning of words based on their surroundings.</td>
+              <td>Google Search query understanding and automated sentiment analysis.</td>
+            </tr>
+            <tr>
+              <td><strong>6. K-Means Clustering</strong></td>
+              <td>Unsupervised</td>
+              <td>Tabular Data</td>
+              <td>Partitions unlabeled data into 'K' distinct groups by calculating the spatial distance between data points.</td>
+              <td>Market segmentation, grouping e-commerce customers by purchasing behavior.</td>
+            </tr>
+            <tr>
+              <td><strong>7. PCA</strong></td>
+              <td>Unsupervised</td>
+              <td>Tabular Data</td>
+              <td>A dimensionality reduction technique that compresses datasets down to the most critical features while retaining core variance.</td>
+              <td>Compressing images before applying predictive models.</td>
+            </tr>
+            <tr>
+              <td><strong>8. GANs</strong></td>
+              <td>Unsupervised</td>
+              <td>Generative AI</td>
+              <td>Pits two neural networks against each other: a "Generator" creates fake data, and a "Discriminator" tries to catch the fakes.</td>
+              <td>Generating highly realistic synthetic training data for scenarios where real data is scarce.</td>
+            </tr>
+            <tr>
+              <td><strong>9. Diffusion Models</strong></td>
+              <td>Unsupervised</td>
+              <td>Generative AI</td>
+              <td>Progressively adds noise to an image until it is destroyed, then learns how to reverse the process to generate new images.</td>
+              <td>Creating high-quality digital art or marketing assets from text prompts.</td>
+            </tr>
+            <tr>
+              <td><strong>10. GPT</strong></td>
+              <td>Self-Supervised</td>
+              <td>GenAI / NLP</td>
+              <td>Uses self-attention mechanisms on massive text datasets to predict the most statistically probable next word in a sequence.</td>
+              <td>Powering conversational agents, generating code, and automating complex writing tasks.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="text-left mt-6">
+      <a href="index.html" class="text-blue-600 hover:underline">&larr; Back to Portfolio Home</a>
+    </div>
+
+  </main>
 
   <footer class="text-center p-4 mt-12 border-t text-sm text-gray-500">
     &copy; 2026 Chaitali Rajurkar. All rights reserved.
