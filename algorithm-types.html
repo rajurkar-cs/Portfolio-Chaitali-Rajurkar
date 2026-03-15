@@ -6,9 +6,6 @@
   <title>Algorithm Taxonomy | Chaitali Rajurkar</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  
-  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-  <script>mermaid.initialize({ startOnLoad: true, theme: 'default' });</script>
 
   <style>
     body {
@@ -51,7 +48,6 @@
       margin-bottom: 2rem;
     }
 
-    /* Table Styling you liked */
     table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.95rem; }
     th, td { padding: 1rem; border: 1px solid #e2e8f0; text-align: left; }
     th { background-color: #003c5f; color: white; font-weight: 600; }
@@ -75,33 +71,58 @@
     
     <div class="content-section">
       <h2 class="section-title">Algorithm Relationship Map</h2>
-      <p class="mb-6 text-gray-700">This flowchart illustrates the hierarchical relationship between learning paradigms, application domains, and specific algorithms.</p>
+      <p class="mb-6 text-gray-700">This framework illustrates the hierarchical relationship between learning paradigms, application domains, and specific algorithms.</p>
       
-      <div class="overflow-x-auto pb-4">
-        <div class="mermaid" style="min-width: 900px; display: flex; justify-content: center;">
-          graph TD
-            ML[Machine Learning Algorithms] --> Sup[Supervised Learning]
-            ML --> Unsup[Unsupervised / Self-Supervised]
+      <div class="flex flex-col md:flex-row gap-6">
 
-            Sup --> Tab1[Tabular Data]
-            Sup --> CV1[Computer Vision]
-            Sup --> NLP1[Natural Language Processing]
+        <div class="flex-1 border-2 border-blue-200 bg-blue-50 rounded-lg p-5 shadow-sm">
+          <h3 class="text-xl font-bold text-blue-900 text-center mb-4 border-b-2 border-blue-200 pb-2">Supervised Learning</h3>
 
-            Unsup --> Tab2[Tabular Data]
-            Unsup --> GenAI[Generative AI]
+          <div class="mb-5">
+            <h4 class="text-sm font-bold text-blue-700 mb-2 uppercase tracking-wide">📊 Tabular Data</h4>
+            <div class="flex flex-col gap-2 pl-4 border-l-2 border-blue-300">
+              <div class="bg-white border border-blue-200 p-3 rounded shadow-sm font-medium text-gray-800 hover:shadow-md transition">1. Random Forest</div>
+              <div class="bg-white border border-blue-200 p-3 rounded shadow-sm font-medium text-gray-800 hover:shadow-md transition">2. Gradient Boosting (XGBoost)</div>
+            </div>
+          </div>
 
-            Tab1 --> RF[1. Random Forest]
-            Tab1 --> XGB[2. Gradient Boosting / XGBoost]
-            CV1 --> CNN[3. Convolutional Neural Networks]
-            CV1 --> YOLO[4. YOLO - Object Detection]
-            NLP1 --> BERT[5. BERT - Text Classification]
+          <div class="mb-5">
+            <h4 class="text-sm font-bold text-blue-700 mb-2 uppercase tracking-wide">👁️ Computer Vision</h4>
+            <div class="flex flex-col gap-2 pl-4 border-l-2 border-blue-300">
+              <div class="bg-white border border-blue-200 p-3 rounded shadow-sm font-medium text-gray-800 hover:shadow-md transition">3. Convolutional Neural Networks (CNNs)</div>
+              <div class="bg-white border border-blue-200 p-3 rounded shadow-sm font-medium text-gray-800 hover:shadow-md transition">4. YOLO - Object Detection</div>
+            </div>
+          </div>
 
-            Tab2 --> KMeans[6. K-Means Clustering]
-            Tab2 --> PCA[7. Principal Component Analysis]
-            GenAI --> GAN[8. Generative Adversarial Networks]
-            GenAI --> Diff[9. Diffusion Models]
-            GenAI --> GPT[10. GPT - Transformer Models]
+          <div>
+            <h4 class="text-sm font-bold text-blue-700 mb-2 uppercase tracking-wide">💬 Natural Language Processing</h4>
+            <div class="flex flex-col gap-2 pl-4 border-l-2 border-blue-300">
+              <div class="bg-white border border-blue-200 p-3 rounded shadow-sm font-medium text-gray-800 hover:shadow-md transition">5. BERT - Text Classification</div>
+            </div>
+          </div>
         </div>
+
+        <div class="flex-1 border-2 border-indigo-200 bg-indigo-50 rounded-lg p-5 shadow-sm">
+          <h3 class="text-xl font-bold text-indigo-900 text-center mb-4 border-b-2 border-indigo-200 pb-2">Unsupervised / Self-Supervised</h3>
+
+          <div class="mb-5">
+            <h4 class="text-sm font-bold text-indigo-700 mb-2 uppercase tracking-wide">📊 Tabular Data</h4>
+            <div class="flex flex-col gap-2 pl-4 border-l-2 border-indigo-300">
+              <div class="bg-white border border-indigo-200 p-3 rounded shadow-sm font-medium text-gray-800 hover:shadow-md transition">6. K-Means Clustering</div>
+              <div class="bg-white border border-indigo-200 p-3 rounded shadow-sm font-medium text-gray-800 hover:shadow-md transition">7. Principal Component Analysis (PCA)</div>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-sm font-bold text-indigo-700 mb-2 uppercase tracking-wide">✨ Generative AI</h4>
+            <div class="flex flex-col gap-2 pl-4 border-l-2 border-indigo-300">
+              <div class="bg-white border border-indigo-200 p-3 rounded shadow-sm font-medium text-gray-800 hover:shadow-md transition">8. Generative Adversarial Networks (GANs)</div>
+              <div class="bg-white border border-indigo-200 p-3 rounded shadow-sm font-medium text-gray-800 hover:shadow-md transition">9. Diffusion Models (Stable Diffusion)</div>
+              <div class="bg-white border border-indigo-200 p-3 rounded shadow-sm font-medium text-gray-800 hover:shadow-md transition">10. GPT - Transformer Models</div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -131,7 +152,7 @@
               <td>Supervised</td>
               <td>Tabular Data</td>
               <td>Sequentially builds decision trees, where each new tree corrects the errors of the previous ones.</td>
-              <td>High-frequency financial trading and dynamic pricing models (e.g., Uber surge pricing).</td>
+              <td>High-frequency financial trading and dynamic pricing models.</td>
             </tr>
             <tr>
               <td><strong>3. CNNs</strong></td>
