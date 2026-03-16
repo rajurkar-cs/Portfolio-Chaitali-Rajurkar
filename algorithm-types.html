@@ -44,70 +44,13 @@
     .content-section {
       background-color: #ffffff;
       border-radius: 0.5rem;
-      padding: 2rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      margin-bottom: 2rem;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1);
+      margin-bottom: 2.5rem;
     }
 
     footer {
       background-color: #f8fafc;
-    }
-
-    /* HIGH-CONTRAST TREE CONNECTORS */
-    
-    /* Top vertical stem from main ALGO button */
-    .algo-stem::after {
-      content: '';
-      position: absolute;
-      bottom: -40px; 
-      left: 50%;
-      width: 4px; /* Bold thickness */
-      height: 40px;
-      background-color: #94a3b8; /* Darker Slate-400 */
-      transform: translateX(-50%);
-    }
-
-    /* Main horizontal bracket line */
-    .tree-bracket::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 25%;
-      right: 25%;
-      height: 4px; /* Bold thickness */
-      background-color: #94a3b8;
-      z-index: 0;
-    }
-    
-    /* Left vertical stem */
-    .tree-bracket::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 25%;
-        width: 4px;
-        height: 20px;
-        background-color: #94a3b8;
-        z-index: 0;
-    }
-
-    /* Right vertical stem for unsupervised branch */
-    .unsup-connector::after {
-        content: '';
-        position: absolute;
-        top: -68px; /* Adjusted to meet the bracket */
-        left: 75%; 
-        width: 4px;
-        height: 20px;
-        background-color: #94a3b8;
-        z-index: 0;
-    }
-
-    /* Mobile adjustments: Hide connectors when stacked */
-    @media (max-width: 768px) {
-      .algo-stem::after, .tree-bracket::before, .tree-bracket::after, .unsup-connector::after {
-        display: none !important;
-      }
     }
   </style>
 </head>
@@ -126,30 +69,37 @@
       <h2 class="section-title">Algorithm Relationship Map</h2>
       
       <div class="flex flex-wrap justify-center gap-6 mb-8 pb-6 border-b border-gray-100">
-        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-blue-400"></span><span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Tabular</span></div>
-        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-emerald-400"></span><span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Vision</span></div>
-        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-cyan-400"></span><span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">NLP</span></div>
-        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-violet-400"></span><span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Clustering</span></div>
-        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-rose-400"></span><span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Generative AI</span></div>
+        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-blue-500"></span><span class="text-xs font-bold text-gray-600 uppercase tracking-widest">Tabular Data</span></div>
+        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-emerald-500"></span><span class="text-xs font-bold text-gray-600 uppercase tracking-widest">Computer Vision</span></div>
+        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-cyan-500"></span><span class="text-xs font-bold text-gray-600 uppercase tracking-widest">NLP</span></div>
+        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-rose-500"></span><span class="text-xs font-bold text-gray-600 uppercase tracking-widest">Generative AI</span></div>
       </div>
       
-      <div class="bg-gray-50 rounded-xl p-6 md:p-10 border border-gray-100 shadow-inner relative overflow-hidden unsup-connector">
+      <div class="bg-gray-50 rounded-xl p-6 md:p-10 border border-gray-100 shadow-inner relative">
         
-        <div class="text-center mb-20 relative z-10 algo-stem">
+        <div class="text-center relative z-10">
           <div class="inline-block px-8 py-3 bg-gray-800 text-white font-bold rounded-full text-sm tracking-widest uppercase shadow-lg border-2 border-gray-700">
             Machine Learning Algorithms
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 relative tree-bracket pt-12">
+        <div class="w-full hidden md:flex flex-col items-center relative z-0">
+            <div class="w-1 h-8 bg-slate-400"></div>
+            <div class="w-1/2 border-t-4 border-slate-400 h-8 flex justify-between">
+                <div class="w-1 h-full bg-slate-400 -ml-[2px]"></div> 
+                <div class="w-1 h-full bg-slate-400 -mr-[2px]"></div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 relative z-10 mt-8 md:mt-0">
           
-          <div class="relative z-10">
+          <div>
             <div class="flex justify-center mb-8">
-              <h3 class="px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-700 text-white text-lg font-bold rounded-full shadow-md">Supervised Learning</h3>
+              <h3 class="px-6 py-2 bg-gradient-to-r from-gray-700 to-gray-900 text-white text-lg font-bold rounded-full shadow-md">Supervised Learning</h3>
             </div>
 
             <div class="space-y-6">
-              <div class="bg-white rounded-lg p-5 border-t-4 border-blue-400 shadow-sm">
+              <div class="bg-white rounded-lg p-5 border-t-4 border-blue-500 shadow-sm">
                 <div class="flex items-center gap-2 mb-4 border-b border-gray-100 pb-2">
                   <span class="text-xl">📊</span>
                   <h4 class="font-bold text-blue-800 uppercase text-xs tracking-widest">Tabular Data</h4>
@@ -160,7 +110,7 @@
                 </div>
               </div>
 
-              <div class="bg-white rounded-lg p-5 border-t-4 border-emerald-400 shadow-sm">
+              <div class="bg-white rounded-lg p-5 border-t-4 border-emerald-500 shadow-sm">
                 <div class="flex items-center gap-2 mb-4 border-b border-gray-100 pb-2">
                   <span class="text-xl">👁️</span>
                   <h4 class="font-bold text-emerald-800 uppercase text-xs tracking-widest">Computer Vision</h4>
@@ -171,7 +121,7 @@
                 </div>
               </div>
 
-              <div class="bg-white rounded-lg p-5 border-t-4 border-cyan-400 shadow-sm">
+              <div class="bg-white rounded-lg p-5 border-t-4 border-cyan-500 shadow-sm">
                 <div class="flex items-center gap-2 mb-4 border-b border-gray-100 pb-2">
                   <span class="text-xl">💬</span>
                   <h4 class="font-bold text-cyan-800 uppercase text-xs tracking-widest">NLP</h4>
@@ -183,24 +133,24 @@
             </div>
           </div>
 
-          <div class="relative z-10">
+          <div>
             <div class="flex justify-center mb-8">
-              <h3 class="px-6 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white text-lg font-bold rounded-full shadow-md">Unsupervised</h3>
+              <h3 class="px-6 py-2 bg-gradient-to-r from-gray-700 to-gray-900 text-white text-lg font-bold rounded-full shadow-md">Unsupervised / Self-Supervised</h3>
             </div>
 
             <div class="space-y-6">
-              <div class="bg-white rounded-lg p-5 border-t-4 border-violet-400 shadow-sm">
+              <div class="bg-white rounded-lg p-5 border-t-4 border-blue-500 shadow-sm">
                 <div class="flex items-center gap-2 mb-4 border-b border-gray-100 pb-2">
                   <span class="text-xl">📊</span>
-                  <h4 class="font-bold text-violet-800 uppercase text-xs tracking-widest">Tabular Data</h4>
+                  <h4 class="font-bold text-blue-800 uppercase text-xs tracking-widest">Tabular Data</h4>
                 </div>
                 <div class="space-y-3">
-                  <div class="p-3 bg-violet-50 text-violet-900 rounded-md text-sm border border-violet-100 hover:-translate-y-1 transition shadow-sm font-bold">K-Means Clustering</div>
-                  <div class="p-3 bg-violet-50 text-violet-900 rounded-md text-sm border border-violet-100 hover:-translate-y-1 transition shadow-sm font-bold uppercase"><strong>PCA - PRINCIPAL COMPONENT ANALYSIS</strong></div>
+                  <div class="p-3 bg-blue-50 text-blue-900 rounded-md text-sm border border-blue-100 hover:-translate-y-1 transition shadow-sm font-bold">K-Means Clustering</div>
+                  <div class="p-3 bg-blue-50 text-blue-900 rounded-md text-sm border border-blue-100 hover:-translate-y-1 transition shadow-sm font-bold uppercase"><strong>PCA - PRINCIPAL COMPONENT ANALYSIS</strong></div>
                 </div>
               </div>
 
-              <div class="bg-white rounded-lg p-5 border-t-4 border-rose-400 shadow-sm">
+              <div class="bg-white rounded-lg p-5 border-t-4 border-rose-500 shadow-sm">
                 <div class="flex items-center gap-2 mb-4 border-b border-gray-100 pb-2">
                   <span class="text-xl">✨</span>
                   <h4 class="font-bold text-rose-800 uppercase text-xs tracking-widest">Generative AI</h4>
@@ -221,51 +171,51 @@
       <h2 class="section-title">Detailed Algorithm Directory</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
         
-        <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow bg-white border-t-4 border-t-blue-400 flex flex-col">
+        <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow bg-white border-t-4 border-t-blue-500 flex flex-col">
           <div class="flex justify-between items-start mb-2">
             <h3 class="text-lg font-bold text-gray-900">Random Forest</h3>
             <span class="bg-blue-100 text-blue-800 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest">Tabular Data</span>
           </div>
           <div class="mb-3">
-            <span class="inline-block bg-blue-100 text-blue-800 border border-blue-300 font-bold text-[10px] px-2 py-1 rounded uppercase">Supervised Learning</span>
+            <span class="inline-block bg-gray-100 text-gray-800 border border-gray-300 font-bold text-[10px] px-2 py-1 rounded uppercase">Supervised Learning</span>
           </div>
-          <p class="text-sm text-gray-700 mb-4 flex-grow">An ensemble method that builds multiple decision trees during training. It merges the results together (bagging) to get a more accurate and stable prediction, which significantly reduces the risk of overfitting common in single decision trees.</p>
+          <p class="text-sm text-gray-700 mb-4 flex-grow">An ensemble method that builds multiple decision trees during training. It merges the results together (bagging) to get a more accurate and stable prediction, significantly reducing the risk of overfitting common in single decision trees.</p>
           <div class="bg-gray-50 border-l-2 border-gray-300 p-3 text-sm">
             <strong>Real-World Use Cases:</strong>
             <ul class="list-disc ml-5 mt-1 text-gray-600">
-              <li>Finance: Determining creditworthiness for loan applications based on thousands of historical profiles.</li>
-              <li>Retail: Predicting customer churn and loyalty using purchasing frequency and support ticket history.</li>
+              <li>Banking: Detecting fraudulent credit card transactions based on spending patterns.</li>
+              <li>Healthcare: Identifying patient risk factors for chronic diseases from electronic health records.</li>
             </ul>
           </div>
         </div>
 
-        <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow bg-white border-t-4 border-t-blue-400 flex flex-col">
+        <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow bg-white border-t-4 border-t-blue-500 flex flex-col">
           <div class="flex justify-between items-start mb-2">
             <h3 class="text-lg font-bold text-gray-900">XGBoost</h3>
             <span class="bg-blue-100 text-blue-800 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest">Tabular Data</span>
           </div>
           <div class="mb-3">
-            <span class="inline-block bg-blue-100 text-blue-800 border border-blue-300 font-bold text-[10px] px-2 py-1 rounded uppercase">Supervised Learning</span>
+            <span class="inline-block bg-gray-100 text-gray-800 border border-gray-300 font-bold text-[10px] px-2 py-1 rounded uppercase">Supervised Learning</span>
           </div>
-          <p class="text-sm text-gray-700 mb-4 flex-grow">A scalable and accurate implementation of gradient boosting. It is designed for speed and performance by utilizing a "greedy" algorithm to build trees sequentially, ensuring each new tree corrects the specific residual errors made by the previous ensemble.</p>
+          <p class="text-sm text-gray-700 mb-4 flex-grow">A high-performance implementation of gradient boosted decision trees. It works by sequentially adding models where each new model mathematically corrects the errors made by previous ones, optimizing for sheer predictive accuracy.</p>
           <div class="bg-gray-50 border-l-2 border-gray-300 p-3 text-sm">
             <strong>Real-World Use Cases:</strong>
             <ul class="list-disc ml-5 mt-1 text-gray-600">
-              <li>Banking: Real-time fraud detection systems that flag suspicious transactions within milliseconds.</li>
-              <li>Energy: Forecasting electrical grid demand based on complex seasonal and weather-related variables.</li>
+              <li>E-commerce: Personalizing product recommendations based on clickstream behavior.</li>
+              <li>Logistics: Optimizing delivery routes and predicting arrival times for shipping services.</li>
             </ul>
           </div>
         </div>
 
-        <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow bg-white border-t-4 border-t-emerald-400 flex flex-col">
+        <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow bg-white border-t-4 border-t-emerald-500 flex flex-col">
           <div class="flex justify-between items-start mb-2">
             <h3 class="text-lg font-bold text-gray-900">CNNs</h3>
-            <span class="bg-emerald-100 text-emerald-800 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest">Vision</span>
+            <span class="bg-emerald-100 text-emerald-800 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest">Computer Vision</span>
           </div>
           <div class="mb-3">
-            <span class="inline-block bg-blue-100 text-blue-800 border border-blue-300 font-bold text-[10px] px-2 py-1 rounded uppercase">Supervised Learning</span>
+            <span class="inline-block bg-gray-100 text-gray-800 border border-gray-300 font-bold text-[10px] px-2 py-1 rounded uppercase">Supervised Learning</span>
           </div>
-          <p class="text-sm text-gray-700 mb-4 flex-grow">Deep learning models optimized for processing grid-like data. They use convolutional layers to act as "feature extractors," identifying spatial hierarchies from simple edges to complex shapes, which makes them the gold standard for image classification.</p>
+          <p class="text-sm text-gray-700 mb-4 flex-grow">Deep learning models optimized for processing grid-like data. They use convolutional layers to act as "feature extractors," mathematically identifying spatial hierarchies from simple edges to complex shapes.</p>
           <div class="bg-gray-50 border-l-2 border-gray-300 p-3 text-sm">
             <strong>Real-World Use Cases:</strong>
             <ul class="list-disc ml-5 mt-1 text-gray-600">
@@ -275,15 +225,15 @@
           </div>
         </div>
 
-        <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow bg-white border-t-4 border-t-emerald-400 flex flex-col">
+        <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow bg-white border-t-4 border-t-emerald-500 flex flex-col">
           <div class="flex justify-between items-start mb-2">
             <h3 class="text-lg font-bold text-gray-900">YOLO</h3>
-            <span class="bg-emerald-100 text-emerald-800 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest">Vision</span>
+            <span class="bg-emerald-100 text-emerald-800 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest">Computer Vision</span>
           </div>
           <div class="mb-3">
-            <span class="inline-block bg-blue-100 text-blue-800 border border-blue-300 font-bold text-[10px] px-2 py-1 rounded uppercase">Supervised Learning</span>
+            <span class="inline-block bg-gray-100 text-gray-800 border border-gray-300 font-bold text-[10px] px-2 py-1 rounded uppercase">Supervised Learning</span>
           </div>
-          <p class="text-sm text-gray-700 mb-4 flex-grow">A revolutionary object detection model that processes an entire image in one pass (regression). It predicts bounding boxes and class probabilities simultaneously, allowing for the incredibly high frame rates needed for live video analysis.</p>
+          <p class="text-sm text-gray-700 mb-4 flex-grow">A revolutionary object detection model that processes an entire image in one pass (regression). It predicts bounding boxes and class probabilities simultaneously, allowing for the incredibly high frame rates needed for live video.</p>
           <div class="bg-gray-50 border-l-2 border-gray-300 p-3 text-sm">
             <strong>Real-World Use Cases:</strong>
             <ul class="list-disc ml-5 mt-1 text-gray-600">
@@ -293,15 +243,15 @@
           </div>
         </div>
 
-        <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow bg-white border-t-4 border-t-cyan-400 flex flex-col">
+        <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow bg-white border-t-4 border-t-cyan-500 flex flex-col">
           <div class="flex justify-between items-start mb-2">
             <h3 class="text-lg font-bold text-gray-900">BERT</h3>
             <span class="bg-cyan-100 text-cyan-800 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest">NLP</span>
           </div>
           <div class="mb-3">
-            <span class="inline-block bg-blue-100 text-blue-800 border border-blue-300 font-bold text-[10px] px-2 py-1 rounded uppercase">Supervised Learning</span>
+            <span class="inline-block bg-gray-100 text-gray-800 border border-gray-300 font-bold text-[10px] px-2 py-1 rounded uppercase">Supervised Learning</span>
           </div>
-          <p class="text-sm text-gray-700 mb-4 flex-grow">A transformer model that is pre-trained to understand language bidirectionally. By looking at the words both before and after a specific token, it can capture complex nuances and context that sequential models miss.</p>
+          <p class="text-sm text-gray-700 mb-4 flex-grow">A transformer model pre-trained to understand language bidirectionally. By looking at the words both before and after a specific token, it can capture complex nuances and context that sequential, left-to-right models miss.</p>
           <div class="bg-gray-50 border-l-2 border-gray-300 p-3 text-sm">
             <strong>Real-World Use Cases:</strong>
             <ul class="list-disc ml-5 mt-1 text-gray-600">
@@ -311,13 +261,13 @@
           </div>
         </div>
 
-        <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow bg-white border-t-4 border-t-violet-400 flex flex-col">
+        <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow bg-white border-t-4 border-t-blue-500 flex flex-col">
           <div class="flex justify-between items-start mb-2">
             <h3 class="text-lg font-bold text-gray-900">K-Means Clustering</h3>
-            <span class="bg-violet-100 text-violet-800 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest">Clustering</span>
+            <span class="bg-blue-100 text-blue-800 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest">Tabular Data</span>
           </div>
           <div class="mb-3">
-            <span class="inline-block bg-purple-100 text-purple-800 border border-purple-300 font-bold text-[10px] px-2 py-1 rounded uppercase">Unsupervised Learning</span>
+            <span class="inline-block bg-gray-100 text-gray-800 border border-gray-300 font-bold text-[10px] px-2 py-1 rounded uppercase">Unsupervised Learning</span>
           </div>
           <p class="text-sm text-gray-700 mb-4 flex-grow">An iterative algorithm that groups similar data points into clusters by minimizing the distance between points and their group's central centroid. It is highly effective for discovering hidden groupings in unlabeled data.</p>
           <div class="bg-gray-50 border-l-2 border-gray-300 p-3 text-sm">
@@ -329,13 +279,13 @@
           </div>
         </div>
 
-        <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow bg-white border-t-4 border-t-violet-400 flex flex-col">
+        <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow bg-white border-t-4 border-t-blue-500 flex flex-col">
           <div class="flex justify-between items-start mb-2">
             <h3 class="text-lg font-bold text-gray-900">PCA</h3>
-            <span class="bg-violet-100 text-violet-800 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest">Tabular Data</span>
+            <span class="bg-blue-100 text-blue-800 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest">Tabular Data</span>
           </div>
           <div class="mb-3">
-            <span class="inline-block bg-purple-100 text-purple-800 border border-purple-300 font-bold text-[10px] px-2 py-1 rounded uppercase">Unsupervised Learning</span>
+            <span class="inline-block bg-gray-100 text-gray-800 border border-gray-300 font-bold text-[10px] px-2 py-1 rounded uppercase">Unsupervised Learning</span>
           </div>
           <p class="text-sm text-gray-700 mb-4 flex-grow">A dimensionality reduction technique that transforms a large set of variables into a smaller one that still contains most of the information in the original set. It simplifies data by mathematically removing redundant correlations.</p>
           <div class="bg-gray-50 border-l-2 border-gray-300 p-3 text-sm">
@@ -347,56 +297,56 @@
           </div>
         </div>
 
-        <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow bg-white border-t-4 border-t-rose-400 flex flex-col">
+        <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow bg-white border-t-4 border-t-rose-500 flex flex-col">
           <div class="flex justify-between items-start mb-2">
             <h3 class="text-lg font-bold text-gray-900">GANs</h3>
             <span class="bg-rose-100 text-rose-800 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest">Generative AI</span>
           </div>
           <div class="mb-3">
-            <span class="inline-block bg-purple-100 text-purple-800 border border-purple-300 font-bold text-[10px] px-2 py-1 rounded uppercase">Unsupervised Learning</span>
+            <span class="inline-block bg-gray-100 text-gray-800 border border-gray-300 font-bold text-[10px] px-2 py-1 rounded uppercase">Unsupervised Learning</span>
           </div>
-          <p class="text-sm text-gray-700 mb-4 flex-grow">A dual-network system where a generator creates fake data and a discriminator tries to detect it. This competition drives the generator to create synthetic data that is indistinguishable from the real-world training set.</p>
+          <p class="text-sm text-gray-700 mb-4 flex-grow">A dual-network system where a generator creates fake data and a discriminator tries to detect it. This zero-sum competition drives the generator to create synthetic data that is indistinguishable from the real-world training set.</p>
           <div class="bg-gray-50 border-l-2 border-gray-300 p-3 text-sm">
             <strong>Real-World Use Cases:</strong>
             <ul class="list-disc ml-5 mt-1 text-gray-600">
-              <li>Media: Generating realistic voice-overs and lip-syncing for animated films or localized content.</li>
-              <li>Materials Science: Discovering new chemical structures and molecular designs for pharmaceutical drugs.</li>
+              <li>Entertainment: Creating realistic textures and 3D models for video games.</li>
+              <li>Security: Generating synthetic fingerprints or iris patterns to test biometric system robustness.</li>
             </ul>
           </div>
         </div>
 
-        <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow bg-white border-t-4 border-t-rose-400 flex flex-col">
+        <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow bg-white border-t-4 border-t-rose-500 flex flex-col">
           <div class="flex justify-between items-start mb-2">
             <h3 class="text-lg font-bold text-gray-900">Diffusion Models</h3>
             <span class="bg-rose-100 text-rose-800 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest">Generative AI</span>
           </div>
           <div class="mb-3">
-            <span class="inline-block bg-purple-100 text-purple-800 border border-purple-300 font-bold text-[10px] px-2 py-1 rounded uppercase">Unsupervised Learning</span>
+            <span class="inline-block bg-gray-100 text-gray-800 border border-gray-300 font-bold text-[10px] px-2 py-1 rounded uppercase">Unsupervised Learning</span>
           </div>
-          <p class="text-sm text-gray-700 mb-4 flex-grow">Models that learn to generate data by reversing a process that gradually adds noise to images. By learning how to "de-noise" a static signal, they can create remarkably high-fidelity and diverse visual content from simple text descriptions.</p>
+          <p class="text-sm text-gray-700 mb-4 flex-grow">Generative models that work by destroying training data by successively adding Gaussian noise, and then learning to recover the data by reversing this noising process. This allows for unprecedented quality in text-to-image generation.</p>
           <div class="bg-gray-50 border-l-2 border-gray-300 p-3 text-sm">
             <strong>Real-World Use Cases:</strong>
             <ul class="list-disc ml-5 mt-1 text-gray-600">
-              <li>Architectural Design: Rapidly generating photorealistic concept renders based on floorplan sketches.</li>
-              <li>Creative Arts: Powering the next generation of digital artistic tools for concept artists and designers.</li>
+              <li>Design: Generating unique marketing assets and conceptual artwork for global ad campaigns.</li>
+              <li>Photography: Upscaling low-resolution historical photos to high-definition quality.</li>
             </ul>
           </div>
         </div>
 
-        <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow bg-white border-t-4 border-t-rose-400 flex flex-col">
+        <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow bg-white border-t-4 border-t-rose-500 flex flex-col">
           <div class="flex justify-between items-start mb-2">
             <h3 class="text-lg font-bold text-gray-900">GPT</h3>
-            <span class="bg-rose-100 text-rose-800 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest">GenAI</span>
+            <span class="bg-rose-100 text-rose-800 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest">Generative AI</span>
           </div>
           <div class="mb-3">
-            <span class="inline-block bg-purple-100 text-purple-800 border border-purple-300 font-bold text-[10px] px-2 py-1 rounded uppercase">Self-Supervised Learning</span>
+            <span class="inline-block bg-gray-100 text-gray-800 border border-gray-300 font-bold text-[10px] px-2 py-1 rounded uppercase">Self-Supervised</span>
           </div>
-          <p class="text-sm text-gray-700 mb-4 flex-grow">A transformer model pre-trained on a massive corpus of human text. It calculates the statistical probability of the next word in a sequence, allowing it to generate coherent, multi-paragraph text, code, and structured analysis.</p>
+          <p class="text-sm text-gray-700 mb-4 flex-grow">A decoder-only transformer model designed to predict the next word in a sentence based on the context of all previous words. Trained on trillions of tokens of human language, it can write code, compose essays, and simulate conversation.</p>
           <div class="bg-gray-50 border-l-2 border-gray-300 p-3 text-sm">
             <strong>Real-World Use Cases:</strong>
             <ul class="list-disc ml-5 mt-1 text-gray-600">
-              <li>Business: Generating initial drafts of complex technical reports and executive summaries.</li>
-              <li>Development: Assisting software engineers by translating natural language requirements into functional code.</li>
+              <li>Software Engineering: Generating boilerplate code and debugging complex logic in real-time.</li>
+              <li>Education: Creating personalized tutoring agents and drafting detailed curriculum summaries.</li>
             </ul>
           </div>
         </div>
