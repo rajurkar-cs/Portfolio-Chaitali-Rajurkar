@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Interactive Neural Network | Chaitali Rajurkar</title>
+  <title>Visualizing Neural Networks | Chaitali Rajurkar</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
@@ -30,253 +30,209 @@
       padding-bottom: 0.5rem;
     }
 
-    .interactive-container {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
+    .svg-container {
       background: #1e293b;
-      padding: 2rem;
+      border: 1px solid #334155;
       border-radius: 12px;
-      border: 1px solid #334155;
-    }
-
-    @media(min-width: 768px) {
-      .interactive-container { grid-template-columns: 3fr 2fr; }
-    }
-
-    .network-svg-container {
-      background: #0f172a;
-      border-radius: 8px;
       padding: 2rem;
-      position: relative;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border: 1px solid #334155;
-      min-height: 400px;
+      text-align: center;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+      overflow-x: auto;
     }
 
-    .layer-col {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      z-index: 10;
-    }
-
-    .node {
-      width: 50px;
-      height: 50px;
-      background: #003c5f;
-      border: 2px solid #38bdf8;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
-    }
-
-    /* Interactive States */
-    .node:hover, .node.active {
-      background: #38bdf8;
-      color: #0f172a;
-      box-shadow: 0 0 20px rgba(56, 189, 248, 0.8);
-      transform: scale(1.1);
-    }
-
-    .node.active-activation {
-      background: #c084fc; /* Purple for math function */
-      border-color: #d8b4fe;
-      box-shadow: 0 0 20px rgba(192, 132, 252, 0.8);
-      transform: scale(1.1);
-      color: white;
-    }
-
-    .node.target-node {
-      background: #ef4444;
-      border-color: #fca5a5;
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-    .node.target-node.show { opacity: 1; }
-
-    /* Lines and Animations */
-    .connections {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    line {
-      stroke: #475569;
-      stroke-width: 2;
-      transition: all 0.3s ease;
-    }
-
-    line.active-weight {
-      stroke: #f59e0b; 
-      stroke-width: 4;
-      filter: drop-shadow(0 0 5px #f59e0b);
-    }
-
-    line.loss-line {
-      stroke: #ef4444;
-      stroke-width: 3;
-      stroke-dasharray: 5, 5;
-      opacity: 0;
-    }
-    line.loss-line.show { opacity: 1; }
-
-    line.optimizing {
-      stroke: #10b981; /* Green for learning */
-      stroke-width: 3;
-      stroke-dasharray: 10, 10;
-      animation: march-backward 1s linear infinite;
-    }
-
-    @keyframes march-backward {
-      to { stroke-dashoffset: 20; }
-    }
-
-    .info-panel {
-      background: #0f172a;
-      border: 1px solid #38bdf8;
-      border-radius: 8px;
-      padding: 2rem;
-    }
-
-    .info-title {
-      font-size: 1.5rem;
-      color: #38bdf8;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 0.2rem 0.6rem;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid #38bdf8;
-      border-radius: 4px;
-      font-size: 0.8rem;
-      margin-right: 0.5rem;
-      margin-bottom: 0.5rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .badge:hover { background: #38bdf8; color: #0f172a; }
-
-    .metric-grid {
+    .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1rem;
-      margin-top: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
     }
 
-    .metric-card {
+    .component-card {
       background: #1e293b;
-      padding: 1rem;
-      border-radius: 8px;
-      border-left: 4px solid #38bdf8;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-top: 4px solid #38bdf8;
     }
-    .metric-label { font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; }
-    .metric-value { font-size: 1.1rem; font-weight: 600; color: #f8fafc; }
+
+    .component-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(56, 189, 248, 0.15);
+      border-top-color: #f59e0b;
+    }
+
+    .component-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #38bdf8;
+      margin-bottom: 0.75rem;
+    }
+
+    .math-font {
+      font-family: 'Courier New', Courier, monospace;
+      background: #0f172a;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      color: #d8b4fe;
+      font-size: 0.9em;
+    }
   </style>
 </head>
 <body>
 
   <header>
     <div class="max-w-6xl mx-auto">
-      <h1 class="text-4xl md:text-5xl font-bold mb-2">Interactive Neural Network Inspector</h1>
-      <p class="text-xl text-blue-200">Exploring deep learning architecture, hyperparameter tuning, and data classification.</p>
+      <h1 class="text-4xl md:text-5xl font-bold mb-2">Visualizing Neural Networks</h1>
+      <p class="text-xl text-blue-200">Architecture, Core Components, and Classification Mechanics.</p>
     </div>
   </header>
 
   <main class="max-w-6xl mx-auto px-4 py-10">
 
     <section class="mb-12">
-      <h2 class="section-title">1. Architecture Explorer</h2>
-      <p class="mb-6 text-gray-400">Interact with the dashboard below. Click the badges to visually highlight how complex algorithms operate inside the "black box."</p>
+      <p class="text-lg text-gray-300 leading-relaxed mb-8">
+        Translating complex datasets into actionable metrics requires shifting from historical analysis to dynamic, predictive architectures. Using the TensorFlow Playground, I explored how neural networks bend feature spaces to solve non-linear classification problems. Below is a complete visual breakdown of the model's architecture and its core computational components.
+      </p>
 
-      <div class="interactive-container">
-        <div class="network-svg-container" id="networkCanvas">
-          <svg class="connections" id="svg-layer"></svg>
+      <h2 class="section-title">1. The Architecture (Data Flow Pipeline)</h2>
+      <p class="mb-6 text-gray-400">This flowchart illustrates how raw coordinate data flows from the Input Layer, passes through the learned parameters of the Hidden Layers, and converges into a final output prediction.</p>
 
-          <div class="layer-col" id="layer-input">
-            <div class="text-center text-xs text-gray-400 mb-2">INPUTS</div>
-            <div class="node">X1</div>
-            <div class="node">X2</div>
-          </div>
+      <div class="svg-container">
+        <svg viewBox="0 0 800 350" style="max-width: 100%; height: auto;">
+          <defs>
+            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="5" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+            <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569" />
+            </marker>
+          </defs>
 
-          <div class="layer-col" id="layer-h1">
-            <div class="text-center text-xs text-blue-400 mb-2 font-bold">HIDDEN 1</div>
-            <div class="node h-node" data-orig="H1">H1</div>
-            <div class="node h-node" data-orig="H2">H2</div>
-            <div class="node h-node" data-orig="H3">H3</div>
-            <div class="node h-node" data-orig="H4">H4</div>
-          </div>
+          <g stroke="#475569" stroke-width="2" marker-end="url(#arrow)">
+            <line x1="120" y1="125" x2="330" y2="65" />
+            <line x1="120" y1="125" x2="330" y2="140" />
+            <line x1="120" y1="125" x2="330" y2="215" />
+            <line x1="120" y1="125" x2="330" y2="290" />
+            
+            <line x1="120" y1="225" x2="330" y2="65" />
+            <line x1="120" y1="225" x2="330" y2="140" />
+            <line x1="120" y1="225" x2="330" y2="215" />
+            <line x1="120" y1="225" x2="330" y2="290" />
 
-          <div class="layer-col" id="layer-h2">
-            <div class="text-center text-xs text-blue-400 mb-2 font-bold">HIDDEN 2</div>
-            <div class="node h-node" data-orig="H1">H1</div>
-            <div class="node h-node" data-orig="H2">H2</div>
-          </div>
+            <line x1="370" y1="65" x2="530" y2="125" />
+            <line x1="370" y1="65" x2="530" y2="225" />
+            <line x1="370" y1="140" x2="530" y2="125" />
+            <line x1="370" y1="140" x2="530" y2="225" />
+            <line x1="370" y1="215" x2="530" y2="125" />
+            <line x1="370" y1="215" x2="530" y2="225" />
+            <line x1="370" y1="290" x2="530" y2="125" />
+            <line x1="370" y1="290" x2="530" y2="225" />
 
-          <div class="layer-col relative" id="layer-output">
-            <div class="text-center text-xs text-green-400 mb-2">PREDICTION</div>
-            <div class="node border-green-400" id="output-node">Y</div>
-          </div>
+            <line x1="570" y1="125" x2="730" y2="175" stroke="#f59e0b" stroke-width="3" />
+            <line x1="570" y1="225" x2="730" y2="175" stroke="#f59e0b" stroke-width="3" />
+          </g>
 
-          <div class="node target-node" id="target-node">TRUE</div>
+          <circle cx="100" cy="125" r="20" fill="#003c5f" stroke="#38bdf8" stroke-width="3" filter="url(#glow)"/>
+          <text x="100" y="130" fill="white" font-size="14" font-weight="bold" text-anchor="middle">X1</text>
+          
+          <circle cx="100" cy="225" r="20" fill="#003c5f" stroke="#38bdf8" stroke-width="3" filter="url(#glow)"/>
+          <text x="100" y="230" fill="white" font-size="14" font-weight="bold" text-anchor="middle">X2</text>
+
+          <circle cx="350" cy="65" r="20" fill="#1e293b" stroke="#c084fc" stroke-width="3"/>
+          <text x="350" y="70" fill="white" font-size="12" text-anchor="middle">f(x)</text>
+          <circle cx="350" cy="140" r="20" fill="#1e293b" stroke="#c084fc" stroke-width="3"/>
+          <text x="350" y="145" fill="white" font-size="12" text-anchor="middle">f(x)</text>
+          <circle cx="350" cy="215" r="20" fill="#1e293b" stroke="#c084fc" stroke-width="3"/>
+          <text x="350" y="220" fill="white" font-size="12" text-anchor="middle">f(x)</text>
+          <circle cx="350" cy="290" r="20" fill="#1e293b" stroke="#c084fc" stroke-width="3"/>
+          <text x="350" y="295" fill="white" font-size="12" text-anchor="middle">f(x)</text>
+
+          <circle cx="550" cy="125" r="20" fill="#1e293b" stroke="#c084fc" stroke-width="3"/>
+          <text x="550" y="130" fill="white" font-size="12" text-anchor="middle">f(x)</text>
+          <circle cx="550" cy="225" r="20" fill="#1e293b" stroke="#c084fc" stroke-width="3"/>
+          <text x="550" y="230" fill="white" font-size="12" text-anchor="middle">f(x)</text>
+
+          <circle cx="750" cy="175" r="25" fill="#ef4444" stroke="#fca5a5" stroke-width="3" filter="url(#glow)"/>
+          <text x="750" y="180" fill="white" font-size="16" font-weight="bold" text-anchor="middle">Y</text>
+
+          <text x="100" y="30" fill="#94a3b8" font-size="16" font-weight="bold" text-anchor="middle">Input Layer</text>
+          <text x="350" y="30" fill="#94a3b8" font-size="16" font-weight="bold" text-anchor="middle">Hidden Layer 1</text>
+          <text x="550" y="30" fill="#94a3b8" font-size="16" font-weight="bold" text-anchor="middle">Hidden Layer 2</text>
+          <text x="750" y="30" fill="#94a3b8" font-size="16" font-weight="bold" text-anchor="middle">Output Layer</text>
+        </svg>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="section-title">2. Component Explanations</h2>
+      <p class="mb-6 text-gray-400">Detailed functional roles of the elements mapped in the architecture above.</p>
+
+      <div class="card-grid">
+        <div class="component-card">
+          <h3 class="component-title">Layers</h3>
+          <p class="text-sm text-gray-300 leading-relaxed">Neural networks process data in sequential stages. The <strong>Input Layer</strong> ingests raw multidimensional tensors (e.g., coordinates). <strong>Hidden Layers</strong> perform hierarchical feature extraction, where early layers find simple lines and deeper layers combine them into complex abstractions. The <strong>Output Layer</strong> formats the final probability distribution for classification.</p>
         </div>
 
-        <div class="info-panel">
-          <div>
-            <span class="badge" onclick="updateInfo('weights')">Weights</span>
-            <span class="badge" onclick="updateInfo('activation')">Activation Function</span>
-            <span class="badge" onclick="updateInfo('loss')">Loss Function</span>
-            <span class="badge" onclick="updateInfo('optimization')">Optimization</span>
-          </div>
-          
-          <div id="dynamic-content" class="mt-6">
-            <h3 class="info-title">👋 Welcome to the Inspector</h3>
-            <p class="text-gray-300">Click the component badges above to dynamically load their definitions and trigger visual animations showing how they function within the network.</p>
-          </div>
+        <div class="component-card">
+          <h3 class="component-title">Neurons (Nodes)</h3>
+          <p class="text-sm text-gray-300 leading-relaxed mb-2">The fundamental computational units. Mathematically, a neuron calculates the weighted sum of its inputs, adds a bias term, and passes the result through an activation function to determine its output signal:</p>
+          <p class="math-font text-center my-2">y = f(∑wᵢxᵢ + b)</p>
+        </div>
+
+        <div class="component-card">
+          <h3 class="component-title">Weights</h3>
+          <p class="text-sm text-gray-300 leading-relaxed">Represented by the lines connecting the nodes. Weights are the learnable numerical parameters matrices that determine the "importance" or magnitude of the signal passing between two neurons. Adjusting these weights is how the network continuously learns to map inputs to the correct outputs.</p>
+        </div>
+
+        <div class="component-card">
+          <h3 class="component-title">Activation Functions</h3>
+          <p class="text-sm text-gray-300 leading-relaxed">Mathematical transformations applied to a neuron's output. Without them, the network collapses into a basic linear regression model. Functions like <strong>Tanh</strong> (used in this Playground experiment to map inputs between -1 and 1) or <strong>ReLU</strong> introduce the crucial non-linearity required to carve out curved decision boundaries.</p>
+        </div>
+
+        <div class="component-card">
+          <h3 class="component-title">Loss Functions</h3>
+          <p class="text-sm text-gray-300 leading-relaxed">The mathematical metric utilized to evaluate model performance. It quantifies the "cost" or error by calculating the distance between the model's predicted output and the ground truth label. For classification tasks like the circular Playground problem, Cross-Entropy Loss is typically utilized to penalize incorrect probability scores.</p>
+        </div>
+
+        <div class="component-card">
+          <h3 class="component-title">Optimization Algorithms</h3>
+          <p class="text-sm text-gray-300 leading-relaxed">The engine of learning. Algorithms like <strong>Gradient Descent</strong> utilize backpropagation to calculate the gradient of the loss function with respect to each weight. The optimizer iteratively adjusts the weights in the opposite direction of the gradient—governed by the Learning Rate—searching for the global minimum error.</p>
         </div>
       </div>
     </section>
 
     <section>
-      <h2 class="section-title">2. Case Study: The Circle Problem</h2>
-      <p class="text-gray-400 mb-6">Using the TensorFlow Playground, I trained a model to separate a complex dataset (a circle of blue dots surrounded by a ring of orange dots). Because this data is circular, traditional linear machine learning models fail instantly. Here is how the Neural Network solved it.</p>
-
+      <h2 class="section-title">3. Playground Case Study: The Circular Dataset</h2>
       <div class="bg-slate-800 p-8 rounded-xl border border-slate-700">
-        <h3 class="text-2xl text-white mb-4">Experiment Configuration</h3>
-        
-        <div class="metric-grid">
-          <div class="metric-card"><div class="metric-label">Dataset</div><div class="metric-value text-blue-400">Circular</div></div>
-          <div class="metric-card"><div class="metric-label">Network Shape</div><div class="metric-value text-green-400">4 Nodes → 2 Nodes</div></div>
-          <div class="metric-card"><div class="metric-label">Activation</div><div class="metric-value">Tanh</div></div>
-          <div class="metric-card"><div class="metric-label">Learning Rate</div><div class="metric-value text-yellow-400">0.03</div></div>
+        <h3 class="text-xl text-white mb-4">Experiment Parameters</h3>
+        <ul class="flex flex-wrap gap-4 mb-6 text-sm">
+          <li class="bg-slate-700 px-3 py-1 rounded text-blue-300">Dataset: Non-Linear Circle</li>
+          <li class="bg-slate-700 px-3 py-1 rounded text-green-300">Architecture: 4 Neurons → 2 Neurons</li>
+          <li class="bg-slate-700 px-3 py-1 rounded text-purple-300">Activation: Tanh</li>
+          <li class="bg-slate-700 px-3 py-1 rounded text-yellow-300">Learning Rate: 0.03</li>
+        </ul>
+
+        <h3 class="text-xl text-white mb-4">Key Observations</h3>
+        <div class="space-y-4 text-gray-300 text-sm leading-relaxed">
+          <p><strong>1. The Necessity of Depth:</strong> Attempting to classify the circular dataset with zero hidden layers failed immediately. A model without hidden layers is strictly linear; it cannot draw the enclosed boundary required to separate a circle from an outer ring. Hidden layers are mandatory for spatial transformation.</p>
+          <p><strong>2. The Mechanics of the 4x2 Architecture:</strong> By configuring 4 neurons in the first hidden layer, the network was able to establish four intersecting linear boundaries (functioning effectively as a bounding box). The subsequent layer of 2 neurons aggregated those boundaries, smoothing the intersections to form a continuous circular classification zone.</p>
+          <p><strong>3. Hyperparameter Sensitivity:</strong> The learning rate of $0.03$ allowed the optimization algorithm to converge smoothly. However, artificially increasing the rate caused the model to drastically overshoot the optimal weights. The gradients exploded, preventing the loss function from ever minimizing, which visually resulted in a chaotic, flickering decision boundary.</p>
         </div>
+      </div>
+    </section>
 
-        <h3 class="text-2xl text-white mt-10 mb-4">Understanding the Results</h3>
-        <div class="space-y-6 text-gray-300">
-          <p><strong>1. Why 0 Hidden Layers Fails (The Scissors Analogy):</strong> A neural network with no hidden layers can only draw a single straight line through the data. Imagine trying to cut a perfect circle out of paper using only one straight cut with scissors—it’s impossible. You need multiple cuts intersecting to carve out a shape. That is why hidden layers are mandatory for complex data.</p>
-          
-          <p><strong>2. Why "4x2" Architecture Worked:</strong> By putting 4 neurons in the first layer, we gave the model 4 "scissors." It learned to draw a box (4 straight lines) around the inner circle. The next layer of 2 neurons then took that box and smoothed the sharp corners, resulting in a perfect circular boundary.</p>
-          
-          <p><strong>3. The Magic of Tanh (Activation):</strong> If you just add neurons together, they still only make straight lines. The <em>Tanh</em> activation function is the "curve maker." It applies a mathematical curve to the data passing through the neurons, allowing the model to bend the straight lines into the circular shape required to solve this problem.</p>
+    <div class="text-left mt-10">
+      <a href="index.html" class="text-blue-400 hover:text-white transition duration-200 font-semibold flex items-center gap-2">
+        <span>&larr;</span> Back to Portfolio Home
+      </a>
+    </div>
 
-          <p><strong>4. Optimization & Learning Rate (The Blindfolded Hiker):</strong> Optimization (Gradient Descent) is like a blindfolded hiker trying to find the bottom of a valley. The "Loss" is their current altitude. The <strong>Learning Rate (0.03)</strong> is the size of the steps they take. At 0.03, the hiker took careful, steady steps to the bottom. When I artificially raised the rate to 3.0, the hiker took steps that were too large, continuously jumping completely over the valley and never finding
+  </main>
+
+  <footer class="text-center p-6 mt-12 border-t border-slate-800 text-sm text-slate-500">
+    &copy; 2026 Chaitali Rajurkar. All rights reserved. | Master of Science in Artificial Intelligence Artifact
+  </footer>
+
+</body>
+</html>
