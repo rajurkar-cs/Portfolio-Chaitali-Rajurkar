@@ -31,7 +31,34 @@
       padding-bottom: 0.5rem;
     }
 
-    /* Interactive Walkthrough Styles */
+    /* Glass Panels */
+    .glass-panel {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    /* LLM Prediction Diagram */
+    .prediction-diagram {
+      display: flex;
+      flex-direction: column;
+      md:flex-row;
+      align-items: center;
+      gap: 1.5rem;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-top: 1.5rem;
+    }
+
+    .token-box { background: #1e293b; padding: 0.8rem 1.2rem; border-radius: 6px; border: 1px solid #334155; font-family: monospace; font-size: 1.1rem; }
+    .prob-bar { height: 8px; border-radius: 4px; background: #34d399; margin-top: 4px; }
+    
+    /* Interactive Walkthrough Tabs */
     .walkthrough-container {
       background: #0f172a;
       border: 1px solid #1e293b;
@@ -40,37 +67,15 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
-    .tab-nav {
-      display: flex;
-      flex-wrap: wrap;
-      background: #1e293b;
-      border-bottom: 1px solid #334155;
-    }
-
+    .tab-nav { display: flex; flex-wrap: wrap; background: #1e293b; border-bottom: 1px solid #334155; }
     .tab-btn {
-      flex: 1;
-      padding: 1rem;
-      text-align: center;
-      font-weight: 600;
-      color: #94a3b8;
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-      transition: all 0.3s ease;
-      min-width: 150px;
+      flex: 1; padding: 1rem; text-align: center; font-weight: 600; color: #94a3b8; cursor: pointer;
+      border-bottom: 3px solid transparent; transition: all 0.3s ease; min-width: 150px;
     }
-
     .tab-btn:hover { background: #334155; color: #e2e8f0; }
-    .tab-btn.active {
-      color: #10b981;
-      border-bottom-color: #10b981;
-      background: #0b1121;
-    }
-
-    .tab-content {
-      padding: 2rem;
-      display: none;
-      animation: fadeIn 0.4s ease-in-out;
-    }
+    .tab-btn.active { color: #10b981; border-bottom-color: #10b981; background: #0b1121; }
+    
+    .tab-content { padding: 2rem; display: none; animation: fadeIn 0.4s ease-in-out; }
     .tab-content.active { display: block; }
 
     @keyframes fadeIn {
@@ -79,53 +84,29 @@
     }
 
     .analogy-box {
-      background: rgba(16, 185, 129, 0.1);
-      border-left: 4px solid #10b981;
-      padding: 1rem 1.5rem;
-      border-radius: 0 8px 8px 0;
-      margin-bottom: 1.5rem;
+      background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981;
+      padding: 1rem 1.5rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;
     }
 
     .cost-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1rem;
-      margin-top: 1.5rem;
-      border-top: 1px solid #1e293b;
-      padding-top: 1.5rem;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem; margin-top: 1.5rem; border-top: 1px solid #1e293b; padding-top: 1.5rem;
     }
-
-    .cost-item {
-      background: #1e293b;
-      padding: 1rem;
-      border-radius: 8px;
-      text-align: center;
-      border: 1px solid #334155;
-    }
-
+    .cost-item { background: #1e293b; padding: 1rem; border-radius: 8px; text-align: center; border: 1px solid #334155; }
     .cost-value { font-size: 1.5rem; font-weight: 700; color: #f8fafc; }
     .cost-label { font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
 
-    /* Matrix Cards */
-    .matrix-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
+    /* Interactive Matrix Styles */
+    .model-btn {
+      background: #0f172a; border: 1px solid #334155; padding: 1rem; border-radius: 8px;
+      cursor: pointer; font-weight: bold; transition: all 0.2s; text-align: center; color: #94a3b8;
     }
+    .model-btn:hover { background: #1e293b; border-color: #34d399; color: #fff; }
+    .model-btn.selected { background: #064e3b; border-color: #10b981; color: #fff; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
 
-    .matrix-card {
-      background: #0f172a;
-      border: 1px solid #1e293b;
-      border-radius: 12px;
-      padding: 1.5rem;
-      transition: transform 0.3s ease, border-color 0.3s ease;
-    }
+    .hud-display { background: #020617; border: 1px solid #34d399; border-radius: 8px; padding: 2rem; position: relative; }
+    .hud-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
 
-    .matrix-card:hover {
-      transform: translateY(-5px);
-      border-color: #34d399;
-      box-shadow: 0 10px 20px rgba(16, 185, 129, 0.1);
-    }
   </style>
 </head>
 <body>
@@ -142,10 +123,43 @@
     <section class="mb-12">
       <h2 class="section-title">1. What is an LLM doing?</h2>
       <p class="text-lg text-gray-300 mb-6">
-        At its core, a Generative AI model like ChatGPT or Gemini is essentially a highly advanced autocomplete engine. It doesn't "think" like a human; instead, it uses massive amounts of mathematical probability to guess the most logical next word in a sentence. 
+        At its core, a Generative AI model like ChatGPT or Gemini is essentially a highly advanced autocomplete engine. It doesn't "think" like a human; instead, it uses massive amounts of mathematical probability to guess the most logical next word (token) in a sentence based on the billions of documents it has read.
       </p>
-      <p class="text-lg text-gray-300">
-        However, teaching a computer to accurately guess the next word in thousands of different languages, coding frameworks, and logical scenarios requires an unimaginable amount of data, electricity, and supercomputers. We call this the <strong>Training Pipeline</strong>.
+
+      <div class="prediction-diagram flex-col md:flex-row">
+        <div class="flex-1">
+          <div class="text-sm text-gray-400 uppercase tracking-widest mb-2">User Prompt</div>
+          <div class="token-box text-blue-300 bg-slate-800">"The quick brown fox jumps over the lazy..."</div>
+        </div>
+        
+        <div class="text-3xl text-slate-500 hidden md:block">➔</div>
+        <div class="flex flex-col items-center justify-center p-4 border-2 border-emerald-500 rounded-full bg-slate-800 shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+          <span class="text-2xl">🧠</span>
+          <span class="text-xs text-emerald-400 font-bold mt-1">LLM Math</span>
+        </div>
+        <div class="text-3xl text-slate-500 hidden md:block">➔</div>
+
+        <div class="flex-1 w-full">
+          <div class="text-sm text-gray-400 uppercase tracking-widest mb-2">Probability Distribution</div>
+          <div class="bg-slate-800 p-4 rounded-lg border border-slate-700 w-full">
+            <div class="mb-3">
+              <div class="flex justify-between text-sm text-white font-mono mb-1"><span>1. "dog"</span><span class="text-emerald-400">92%</span></div>
+              <div class="prob-bar" style="width: 92%;"></div>
+            </div>
+            <div class="mb-3">
+              <div class="flex justify-between text-sm text-gray-300 font-mono mb-1"><span>2. "cat"</span><span class="text-emerald-400">5%</span></div>
+              <div class="prob-bar bg-blue-500" style="width: 5%;"></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm text-gray-400 font-mono mb-1"><span>3. "log"</span><span class="text-emerald-400">1%</span></div>
+              <div class="prob-bar bg-slate-500" style="width: 1%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <p class="text-md text-gray-400 mt-6">
+        Teaching a computer to accurately guess the next word in thousands of different languages, coding frameworks, and logical scenarios requires an unimaginable amount of data, electricity, and supercomputers. We call this the <strong>Training Pipeline</strong>.
       </p>
     </section>
 
@@ -167,17 +181,10 @@
             Imagine trying to teach someone everything about the world by giving them a library containing every book, article, and website ever written. Before they can read it, you have to throw away all the junk mail, duplicate pages, and torn books so they don't learn bad information.
           </div>
           <h3 class="text-2xl font-bold text-white mb-2">Data Collection & Curation</h3>
-          <p class="text-gray-300 mb-4">AI models are fed "Trillions of Tokens" (a token is roughly a piece of a word). Developers scrape the entire public internet, Wikipedia, and digitized books. The hardest part is <strong>filtering</strong>—using algorithms to remove toxic content, personal information (PII), and low-quality spam.</p>
-          
+          <p class="text-gray-300 mb-4">AI models are fed "Trillions of Tokens". Developers scrape the entire public internet, Wikipedia, and digitized books. The hardest part is <strong>filtering</strong>—using algorithms to remove toxic content, personal information (PII), and low-quality spam.</p>
           <div class="cost-grid">
-            <div class="cost-item">
-              <div class="cost-value text-blue-400">Petabytes</div>
-              <div class="cost-label">Storage Required</div>
-            </div>
-            <div class="cost-item">
-              <div class="cost-value text-yellow-400">High</div>
-              <div class="cost-label">Human Labor Cost</div>
-            </div>
+            <div class="cost-item"><div class="cost-value text-blue-400">Petabytes</div><div class="cost-label">Storage Required</div></div>
+            <div class="cost-item"><div class="cost-value text-yellow-400">High</div><div class="cost-label">Human Labor Cost</div></div>
           </div>
         </div>
 
@@ -187,21 +194,11 @@
             Now the person sits in a room for 6 months reading every single book in that library. They aren't answering questions yet; they are just learning how human language sounds, the rules of grammar, and basic facts about the world by predicting what word comes next on the page.
           </div>
           <h3 class="text-2xl font-bold text-white mb-2">Pre-Training (The Core Burn)</h3>
-          <p class="text-gray-300 mb-4">This is where the massive cost comes in. The AI is loaded onto a cluster of tens of thousands of specialized GPUs (like NVIDIA H100s). It processes the data over and over, continually adjusting its internal math (parameters) to get better at predicting text. This takes months of non-stop computing.</p>
-          
+          <p class="text-gray-300 mb-4">This is where the massive cost comes in. The AI is loaded onto a cluster of tens of thousands of specialized GPUs. It processes the data over and over, continually adjusting its internal math (parameters) to get better at predicting text. This takes months of non-stop computing.</p>
           <div class="cost-grid">
-            <div class="cost-item">
-              <div class="cost-value text-purple-400">Months</div>
-              <div class="cost-label">Time Required</div>
-            </div>
-            <div class="cost-item">
-              <div class="cost-value text-red-400">$100M+</div>
-              <div class="cost-label">Compute Cost</div>
-            </div>
-            <div class="cost-item">
-              <div class="cost-value text-yellow-400">Massive</div>
-              <div class="cost-label">Energy Burned (MWh)</div>
-            </div>
+            <div class="cost-item"><div class="cost-value text-purple-400">Months</div><div class="cost-label">Time Required</div></div>
+            <div class="cost-item"><div class="cost-value text-red-400">$100M+</div><div class="cost-label">Compute Cost</div></div>
+            <div class="cost-item"><div class="cost-value text-yellow-400">Massive</div><div class="cost-label">Energy Burned (MWh)</div></div>
           </div>
         </div>
 
@@ -211,17 +208,10 @@
             The person now knows everything, but they talk like a chaotic encyclopedia. Fine-tuning is like sending them to finishing school. Human teachers grade their answers, rewarding them for being polite, helpful, and safe, and punishing them for lying or being toxic.
           </div>
           <h3 class="text-2xl font-bold text-white mb-2">Fine-Tuning (SFT & RLHF)</h3>
-          <p class="text-gray-300 mb-4">A base model is useless to a consumer. It must undergo Supervised Fine-Tuning (SFT) and Reinforcement Learning from Human Feedback (RLHF). Thousands of human experts manually rank the AI's responses to teach it to follow instructions (like "write a poem") instead of just spitting out random web text.</p>
-          
+          <p class="text-gray-300 mb-4">A base model must undergo Supervised Fine-Tuning (SFT) and Reinforcement Learning from Human Feedback (RLHF). Thousands of human experts manually rank the AI's responses to teach it to follow instructions (like "write a poem") instead of just spitting out random web text.</p>
           <div class="cost-grid">
-            <div class="cost-item">
-              <div class="cost-value text-green-400">High</div>
-              <div class="cost-label">Data Quality Needed</div>
-            </div>
-            <div class="cost-item">
-              <div class="cost-value text-blue-400">Medium</div>
-              <div class="cost-label">Compute Cost</div>
-            </div>
+            <div class="cost-item"><div class="cost-value text-green-400">High</div><div class="cost-label">Data Quality Needed</div></div>
+            <div class="cost-item"><div class="cost-value text-blue-400">Medium</div><div class="cost-label">Compute Cost</div></div>
           </div>
         </div>
 
@@ -231,65 +221,68 @@
             The person is finally hired to work at a front desk. Every time a customer asks them a question, they have to use their brainpower to think of the answer. If millions of people ask questions at the same time, you need a massive, highly efficient building to house them.
           </div>
           <h3 class="text-2xl font-bold text-white mb-2">Deployment & Inference</h3>
-          <p class="text-gray-300 mb-4">Once training is done, the model is deployed. <strong>Inference</strong> is the act of the model generating a response to a user's prompt. While training is a massive one-time cost, inference is an ongoing cost. Every single time a user hits "send" on ChatGPT, a GPU in a datacenter somewhere has to perform math to generate the words.</p>
-          
+          <p class="text-gray-300 mb-4">Once training is done, the model is deployed. <strong>Inference</strong> is the act of the model generating a response to a user's prompt. While training is a massive one-time cost, inference is an ongoing cost. Every single time a user hits "send" on ChatGPT, a GPU in a datacenter has to perform math.</p>
           <div class="cost-grid">
-            <div class="cost-item">
-              <div class="cost-value text-emerald-400">Ongoing</div>
-              <div class="cost-label">Compute Cost</div>
-            </div>
-            <div class="cost-item">
-              <div class="cost-value text-purple-400">Latency</div>
-              <div class="cost-label">Primary Challenge</div>
-            </div>
+            <div class="cost-item"><div class="cost-value text-emerald-400">Ongoing</div><div class="cost-label">Compute Cost</div></div>
+            <div class="cost-item"><div class="cost-value text-purple-400">Latency</div><div class="cost-label">Primary Challenge</div></div>
           </div>
         </div>
       </div>
     </section>
 
     <section class="mb-16">
-      <h2 class="section-title">3. Real-World Infrastructure Requirements</h2>
-      <p class="mb-6 text-gray-400">Here is a look at the estimated physical resources required by the tech giants to build the models we use today.</p>
+      <h2 class="section-title">3. Frontier Model Infrastructure Matrix</h2>
+      <p class="mb-6 text-gray-400">Select a major industry model below to reveal its estimated training architecture, data scale, and core focus.</p>
 
-      <div class="matrix-grid">
-        <div class="matrix-card">
-          <h3 class="text-xl font-bold text-white mb-1">GPT-4</h3>
-          <p class="text-sm text-emerald-400 mb-4">OpenAI</p>
-          <ul class="text-sm text-gray-300 space-y-2">
-            <li><strong>Compute:</strong> ~25,000 NVIDIA A100 GPUs</li>
-            <li><strong>Data:</strong> Multiple Trillions of Tokens</li>
-            <li><strong>Est. Cost:</strong> $100M+ USD</li>
-          </ul>
-        </div>
-        
-        <div class="matrix-card">
-          <h3 class="text-xl font-bold text-white mb-1">LLaMA 3</h3>
-          <p class="text-sm text-blue-400 mb-4">Meta (Open Source)</p>
-          <ul class="text-sm text-gray-300 space-y-2">
-            <li><strong>Compute:</strong> Two custom 24k H100 clusters</li>
-            <li><strong>Data:</strong> 15 Trillion Tokens</li>
-            <li><strong>Est. Cost:</strong> Hardware highly capitalized internally</li>
-          </ul>
-        </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <button class="model-btn selected" onclick="updateMatrix('gpt4', this)">GPT-4 (OpenAI)</button>
+        <button class="model-btn" onclick="updateMatrix('llama3', this)">LLaMA 3 (Meta)</button>
+        <button class="model-btn" onclick="updateMatrix('gemini', this)">Gemini 1.5 (Google)</button>
+        <button class="model-btn" onclick="updateMatrix('claude', this)">Claude 3 (Anthropic)</button>
+      </div>
 
-        <div class="matrix-card">
-          <h3 class="text-xl font-bold text-white mb-1">Gemini 1.5</h3>
-          <p class="text-sm text-yellow-400 mb-4">Google</p>
-          <ul class="text-sm text-gray-300 space-y-2">
-            <li><strong>Compute:</strong> Custom TPUv4 / TPUv5e Pods</li>
-            <li><strong>Data:</strong> Native Multimodal (Text, Video, Audio)</li>
-            <li><strong>Est. Cost:</strong> Proprietary internal cost</li>
-          </ul>
+      <div class="hud-display">
+        <div class="hud-grid">
+          <div>
+            <div class="text-xs text-emerald-400 uppercase tracking-widest mb-1">Estimated Hardware Cluster</div>
+            <div class="text-xl font-bold text-white" id="hud-hardware">~25,000 NVIDIA A100 GPUs</div>
+          </div>
+          <div>
+            <div class="text-xs text-emerald-400 uppercase tracking-widest mb-1">Data Scale</div>
+            <div class="text-xl font-bold text-white" id="hud-data">Multiple Trillions of Tokens</div>
+          </div>
+          <div>
+            <div class="text-xs text-emerald-400 uppercase tracking-widest mb-1">Estimated Cost Magnitude</div>
+            <div class="text-xl font-bold text-white" id="hud-cost">$100M+ USD</div>
+          </div>
         </div>
+        <div class="mt-6 pt-6 border-t border-slate-800">
+          <div class="text-xs text-emerald-400 uppercase tracking-widest mb-2">Infrastructure Strategy Note</div>
+          <p class="text-gray-300 text-sm leading-relaxed" id="hud-note">Pioneered massive-scale MoE (Mixture of Experts) architecture, requiring immense VRAM distributed across tightly networked GPU clusters to manage trillions of parameters effectively.</p>
+        </div>
+      </div>
+    </section>
 
-        <div class="matrix-card">
-          <h3 class="text-xl font-bold text-white mb-1">Claude 3</h3>
-          <p class="text-sm text-purple-400 mb-4">Anthropic</p>
-          <ul class="text-sm text-gray-300 space-y-2">
-            <li><strong>Compute:</strong> Massive AWS / GCP Clusters</li>
-            <li><strong>Focus:</strong> Heavy investment in Constitutional AI / RLHF</li>
-            <li><strong>Est. Cost:</strong> ~$100M+ USD</li>
-          </ul>
+    <section class="mb-12">
+      <h2 class="section-title">4. The Core Resource Pillars</h2>
+      <p class="mb-6 text-gray-400">The foundational requirements for building generative artificial intelligence at scale.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="glass-panel border-l-4 border-blue-500">
+          <h3 class="text-xl font-bold text-blue-400 mb-2">💻 Computational Power (Compute)</h3>
+          <p class="text-sm text-gray-300">Training requires clusters of specialized AI accelerators (NVIDIA H100s, Google TPUs) running continuous matrix multiplications. The bottleneck is often the "interconnect" speed—how fast these GPUs can pass data back and forth across the network.</p>
+        </div>
+        <div class="glass-panel border-l-4 border-yellow-500">
+          <h3 class="text-xl font-bold text-yellow-400 mb-2">⚡ Energy & Cooling</h3>
+          <p class="text-sm text-gray-300">AI clusters consume staggering electricity. Training a single frontier model uses tens of thousands of Megawatt-hours (MWh). Datacenters must also invest heavily in advanced liquid cooling infrastructure to prevent hardware meltdown.</p>
+        </div>
+        <div class="glass-panel border-l-4 border-emerald-500">
+          <h3 class="text-xl font-bold text-emerald-400 mb-2">🗄️ Data Curation</h3>
+          <p class="text-sm text-gray-300">Models ingest petabytes of text. However, "dirty" data creates bad models. Significant human and automated resources are spent filtering out PII (Personal Identifiable Information), toxic content, and duplicate web scrapes.</p>
+        </div>
+        <div class="glass-panel border-l-4 border-purple-500">
+          <h3 class="text-xl font-bold text-purple-400 mb-2">⏳ Time & Iteration</h3>
+          <p class="text-sm text-gray-300">Beyond the months required for Pre-Training, immense time is spent on Reinforcement Learning from Human Feedback (RLHF). This requires paying thousands of human experts to manually rank AI responses to teach the model safety and alignment.</p>
         </div>
       </div>
     </section>
@@ -307,14 +300,30 @@
   </footer>
 
   <script>
+    // Tab Logic
     function switchTab(tabId, btnElement) {
-      // Remove active class from all buttons and content
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-      
-      // Add active class to clicked button and target content
       btnElement.classList.add('active');
       document.getElementById(tabId).classList.add('active');
+    }
+
+    // Matrix Logic
+    const modelData = {
+      'gpt4': { hw: "~25,000 NVIDIA A100 GPUs", data: "Multiple Trillions of Tokens", cost: "$100M+ USD", note: "Pioneered massive-scale MoE (Mixture of Experts) architecture, requiring immense VRAM distributed across tightly networked GPU clusters to manage trillions of parameters effectively." },
+      'llama3': { hw: "Custom 24k NVIDIA H100 Clusters", data: "15 Trillion Tokens", cost: "$100M+ (Hardware capitalized)", note: "Meta focused heavily on brutal data-quality filtering and extended training time (compute-optimal scaling) to punch above its weight class in open-source benchmarks." },
+      'gemini': { hw: "Custom Google TPUv4 / TPUv5e Pods", data: "Native Multimodal (Web-Scale)", cost: "Proprietary internal cost", note: "Unlike others relying on NVIDIA, Google utilizes its proprietary Tensor Processing Units (TPUs) natively designed to process multimodal data (text, video, audio) simultaneously." },
+      'claude': { hw: "Large-scale AWS / GCP Clusters", data: "Proprietary blend of public & synthetic", cost: "~$100M USD (Estimated)", note: "Anthropic invests massive computational and human resources specifically into Constitutional AI and safety guardrails during the Fine-Tuning (RLHF) phase." }
+    };
+
+    function updateMatrix(modelKey, btnElement) {
+      document.querySelectorAll('.model-btn').forEach(b => b.classList.remove('selected'));
+      btnElement.classList.add('selected');
+      const data = modelData[modelKey];
+      document.getElementById('hud-hardware').innerText = data.hw;
+      document.getElementById('hud-data').innerText = data.data;
+      document.getElementById('hud-cost').innerText = data.cost;
+      document.getElementById('hud-note').innerText = data.note;
     }
   </script>
 </body>
