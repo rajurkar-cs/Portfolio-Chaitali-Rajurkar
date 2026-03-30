@@ -40,23 +40,6 @@
       padding: 2rem;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
-
-    /* LLM Prediction Diagram */
-    .prediction-diagram {
-      display: flex;
-      flex-direction: column;
-      md:flex-row;
-      align-items: center;
-      gap: 1.5rem;
-      background: #0f172a;
-      border: 1px solid #1e293b;
-      padding: 2rem;
-      border-radius: 12px;
-      margin-top: 1.5rem;
-    }
-
-    .token-box { background: #1e293b; padding: 0.8rem 1.2rem; border-radius: 6px; border: 1px solid #334155; font-family: monospace; font-size: 1.1rem; }
-    .prob-bar { height: 8px; border-radius: 4px; background: #34d399; margin-top: 4px; }
     
     /* Interactive Walkthrough Tabs */
     .walkthrough-container {
@@ -126,35 +109,64 @@
         At its core, a Generative AI model like ChatGPT or Gemini is essentially a highly advanced autocomplete engine. It doesn't "think" like a human; instead, it uses massive amounts of mathematical probability to guess the most logical next word (token) in a sentence based on the billions of documents it has read.
       </p>
 
-      <div class="prediction-diagram flex-col md:flex-row">
-        <div class="flex-1">
-          <div class="text-sm text-gray-400 uppercase tracking-widest mb-2">User Prompt</div>
-          <div class="token-box text-blue-300 bg-slate-800">"The quick brown fox jumps over the lazy..."</div>
-        </div>
-        
-        <div class="text-3xl text-slate-500 hidden md:block">➔</div>
-        <div class="flex flex-col items-center justify-center p-4 border-2 border-emerald-500 rounded-full bg-slate-800 shadow-[0_0_15px_rgba(16,185,129,0.3)]">
-          <span class="text-2xl">🧠</span>
-          <span class="text-xs text-emerald-400 font-bold mt-1">LLM Math</span>
-        </div>
-        <div class="text-3xl text-slate-500 hidden md:block">➔</div>
+      <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 md:p-8 mt-8 mb-8 shadow-2xl relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-full bg-emerald-500/5 blur-[80px] pointer-events-none"></div>
 
-        <div class="flex-1 w-full">
-          <div class="text-sm text-gray-400 uppercase tracking-widest mb-2">Probability Distribution</div>
-          <div class="bg-slate-800 p-4 rounded-lg border border-slate-700 w-full">
-            <div class="mb-3">
-              <div class="flex justify-between text-sm text-white font-mono mb-1"><span>1. "dog"</span><span class="text-emerald-400">92%</span></div>
-              <div class="prob-bar" style="width: 92%;"></div>
+        <div class="flex flex-col md:flex-row items-stretch justify-between gap-4 md:gap-6 relative z-10">
+          
+          <div class="flex-1 bg-slate-900 border border-slate-700 rounded-lg p-5 flex flex-col justify-center">
+            <div class="text-xs text-emerald-400 font-bold tracking-widest uppercase mb-3 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> User Prompt
             </div>
-            <div class="mb-3">
-              <div class="flex justify-between text-sm text-gray-300 font-mono mb-1"><span>2. "cat"</span><span class="text-emerald-400">5%</span></div>
-              <div class="prob-bar bg-blue-500" style="width: 5%;"></div>
-            </div>
-            <div>
-              <div class="flex justify-between text-sm text-gray-400 font-mono mb-1"><span>3. "log"</span><span class="text-emerald-400">1%</span></div>
-              <div class="prob-bar bg-slate-500" style="width: 1%;"></div>
+            <div class="font-mono text-blue-300 text-sm md:text-base leading-relaxed">
+              "The quick brown fox jumps over the lazy..."
             </div>
           </div>
+
+          <div class="flex flex-col items-center justify-center shrink-0 py-4 md:py-0">
+            <div class="block md:hidden text-slate-500 mb-4 text-xl">⬇</div>
+            
+            <div class="w-16 h-16 rounded-full border-2 border-emerald-500 bg-slate-900 shadow-[0_0_20px_rgba(16,185,129,0.3)] flex items-center justify-center text-2xl relative">
+              <div class="absolute inset-0 rounded-full border-t-2 border-emerald-300 animate-spin opacity-50"></div>
+              🧠
+            </div>
+            <div class="text-xs text-emerald-400 font-bold mt-3 tracking-widest uppercase">LLM Math</div>
+            
+            <div class="block md:hidden text-slate-500 mt-4 text-xl">⬇</div>
+          </div>
+
+          <div class="flex-1 bg-slate-900 border border-slate-700 rounded-lg p-5 flex flex-col justify-center">
+            <div class="text-xs text-emerald-400 font-bold tracking-widest uppercase mb-4">
+              Next-Token Probability
+            </div>
+            <div class="space-y-4 w-full">
+              <div>
+                <div class="flex justify-between text-sm text-white font-mono mb-1">
+                  <span>1. "dog"</span><span class="text-emerald-400 font-bold">92.0%</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-2">
+                  <div class="bg-gradient-to-r from-emerald-600 to-emerald-400 h-2 rounded-full" style="width: 92%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-sm text-gray-400 font-mono mb-1">
+                  <span>2. "cat"</span><span class="text-blue-400">5.4%</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-2">
+                  <div class="bg-gradient-to-r from-blue-600 to-blue-400 h-2 rounded-full" style="width: 5.4%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-sm text-gray-500 font-mono mb-1">
+                  <span>3. "log"</span><span class="text-slate-400">1.1%</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-2">
+                  <div class="bg-slate-500 h-2 rounded-full" style="width: 1.1%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
       
