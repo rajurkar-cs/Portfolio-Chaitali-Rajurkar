@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Explainable AI (XAI) | Chaitali Rajurkar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #09090b; 
+      color: #e2e8f0;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    header {
+      background: radial-gradient(circle at top right, #3b0764, #09090b);
+      padding: 4rem 10%;
+      border-bottom: 2px solid #a855f7;
+      box-shadow: 0 4px 30px rgba(168, 85, 247, 0.15);
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #c084fc; 
+      border-bottom: 1px solid #27272a;
+      padding-bottom: 0.5rem;
+    }
+
+    /* Glass Panels */
+    .glass-panel {
+      background: rgba(24, 24, 27, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    
+    .glass-panel:hover {
+      transform: translateY(-5px);
+      border-color: #a855f7;
+    }
+
+    /* Black Box vs Glass Box Toggle */
+    .box-container {
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .box-visual {
+      height: 200px;
+      margin: 2rem auto;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      transition: all 0.5s ease;
+    }
+
+    .black-box {
+      background: #000;
+      border: 2px solid #3f3f46;
+      color: #71717a;
+      box-shadow: inset 0 0 50px rgba(0,0,0,1);
+    }
+
+    .glass-box {
+      background: rgba(6, 182, 212, 0.1);
+      border: 2px solid #06b6d4;
+      color: #22d3ee;
+      box-shadow: 0 0 30px rgba(6, 182, 212, 0.2);
+      backdrop-filter: blur(4px);
+    }
+
+    /* Chain of Thought Interactive */
+    .cot-container {
+      background: #18181b;
+      border-left: 4px solid #c084fc;
+      padding: 1.5rem;
+      border-radius: 0 8px 8px 0;
+      margin-top: 1rem;
+    }
+    
+    .reasoning-step {
+      display: none;
+      padding: 0.75rem;
+      background: #27272a;
+      border-radius: 6px;
+      margin-top: 0.5rem;
+      font-family: monospace;
+      color: #a78bfa;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(-10px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .reveal-btn {
+      background: #a855f7;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      border: none;
+      margin-top: 1rem;
+    }
+    .reveal-btn:hover { background: #9333ea; }
+    
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+    .metric-card {
+      background: #09090b;
+      border: 1px solid #27272a;
+      border-radius: 8px;
+      padding: 1.5rem;
+      border-top: 4px solid #06b6d4;
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="max-w-6xl mx-auto">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-white">Portfolio Artifact 4: Explainable AI (XAI)</h1>
+      <p class="text-xl text-purple-200">Decoding the Black Box: Transparency, Validation, and Trust in Large Language Models.</p>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-10">
+
+    <section class="mb-16">
+      <h2 class="section-title">1. The Necessity of Explainable AI</h2>
+      <p class="text-lg text-gray-300 mb-6">
+        As generative AI models (like GPT-4, Gemini, and Claude) are deployed in high-stakes sectors such as healthcare, finance, and law, accuracy is no longer enough. Stakeholders require <strong>Explainability</strong>—the ability to understand, trace, and audit how a model arrived at a specific decision. 
+      </p>
+
+      <div class="box-container">
+        <h3 class="text-xl font-bold text-white mb-2" id="box-title">The "Black Box" Paradigm</h3>
+        <p class="text-gray-400 text-sm max-w-2xl mx-auto" id="box-desc">Currently, most deep learning models operate opaquely. Billions of parameters interact in non-linear ways, making it impossible for humans to trace the exact pathway of a single output.</p>
+        
+        <div class="box-visual black-box w-full max-w-lg" id="visual-box">
+          Input ➔ [ ? ? ? ] ➔ Output
+        </div>
+
+        <button class="reveal-btn" onclick="toggleBox()" id="toggle-btn">Transform to Glass Box</button>
+      </div>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="section-title">2. Primary Obstacles in Interpretability</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass-panel">
+          <div class="text-3xl mb-3">🌌</div>
+          <h3 class="text-xl font-bold text-purple-400 mb-2">Complexity & Opacity</h3>
+          <p class="text-sm text-gray-300">Decisions in LLMs emerge from distributed representations across billions of weights. There is no single "component" or line of code responsible for a specific answer, resisting straightforward logical extraction.</p>
+        </div>
+        <div class="glass-panel">
+          <div class="text-3xl mb-3">⚖️</div>
+          <h3 class="text-xl font-bold text-cyan-400 mb-2">Data Quality & Bias</h3>
+          <p class="text-sm text-gray-300">Models inherit the imperfections of their training data. If historical bias exists in the data, the model will output biased decisions. Explaining *why* the model is biased requires auditing petabytes of untracked internet scrapes.</p>
+        </div>
+        <div class="glass-panel">
+          <div class="text-3xl mb-3">🎭</div>
+          <h3 class="text-xl font-bold text-pink-400 mb-2">Post-Hoc Rationalization</h3>
+          <p class="text-sm text-gray-300">Often, we ask an AI "why did you say that?" after the fact. The AI generates a plausible-sounding explanation, but this is a *post-hoc rationalization*—it may not actually reflect the true internal mathematical logic used during generation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="section-title">3. Current Industry Solutions</h2>
+      <p class="mb-6 text-gray-400">Leading organizations (OpenAI, Anthropic, Google) are implementing several techniques to peek inside the neural network.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+          <h3 class="text-xl font-bold text-white mb-2">Attention Visualization</h3>
+          <p class="text-sm text-gray-400 mb-4">Tools that map which specific words (tokens) the model is "paying attention to" when generating a response. If a model denies a loan, attention maps can highlight if it inappropriately focused on a demographic variable.</p>
+          <div class="p-4 bg-black rounded border border-gray-800 font-mono text-xs">
+            <span class="text-gray-500">Input:</span> The <span class="bg-cyan-900 text-cyan-200 px-1">patient</span> was prescribed medication for <span class="bg-purple-900 text-purple-200 px-1">hypertension</span>.<br><br>
+            <span class="text-gray-500">Attention Weights:</span> [patient: 0.82] ➔ [hypertension: 0.95]
+          </div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+          <h3 class="text-xl font-bold text-white mb-2">Chain-of-Thought (CoT)</h3>
+          <p class="text-sm text-gray-400">Forcing the model to "think aloud" step-by-step before answering. This creates an auditable trail of logic, significantly improving trustworthiness.</p>
+          
+          <div class="cot-container">
+            <div class="text-sm text-gray-300 italic">User: "If a company has $100k revenue, $40k expenses, and a 20% tax rate, what is the net profit?"</div>
+            
+            <div id="step1" class="reasoning-step">➔ Step 1: Calculate gross profit ($100k - $40k = $60k)</div>
+            <div id="step2" class="reasoning-step">➔ Step 2: Calculate tax (20% of $60k = $12k)</div>
+            <div id="step3" class="reasoning-step">➔ Step 3: Calculate net profit ($60k - $12k = $48k)</div>
+            
+            <button class="reveal-btn mt-3" onclick="revealCoT()" id="cot-btn">Reveal Model Reasoning</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="section-title">4. Validation & Performance Metrics</h2>
+      <p class="mb-6 text-gray-400">Explainability must be paired with rigorous validation. We cannot trust a model simply because it gives a confident explanation; we must measure its reliability.</p>
+
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="text-cyan-400 font-bold mb-1">Empirical Benchmarks</div>
+          <p class="text-xs text-gray-400">Using standardized tests (MMLU, HumanEval) to quantitatively score the model's accuracy across distinct subjects like law, math, and coding.</p>
+        </div>
+        <div class="metric-card">
+          <div class="text-cyan-400 font-bold mb-1">RLHF Validations</div>
+          <p class="text-xs text-gray-400">Reinforcement Learning from Human Feedback utilizes human domain experts to score AI outputs for helpfulness, safety, and factual grounding.</p>
+        </div>
+        <div class="metric-card">
+          <div class="text-cyan-400 font-bold mb-1">Adversarial Probing</div>
+          <p class="text-xs text-gray-400">"Red-teaming" the model by intentionally feeding it toxic, confusing, or biased prompts to validate whether the safety guardrails hold up under pressure.</p>
+        </div>
+        <div class="metric-card">
+          <div class="text-cyan-400 font-bold mb-1">Statistical Metrics</div>
+          <p class="text-xs text-gray-400">Utilizing NLP-specific metrics like BLEU or ROUGE to evaluate the semantic similarity of the model's output compared to a human-verified baseline.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-12 mt-16 border-t border-zinc-800 pt-10">
+      <h2 class="section-title">Insights & Learning</h2>
+      <div class="p-8 bg-transparent"> 
+        <p class="text-gray-300 leading-relaxed mb-4">
+          Exploring Explainable AI (XAI) for this artifact underscored a critical tension in modern machine learning: the trade-off between model performance and interpretability. Coming from a background in traditional data analytics and finance—where every KPI, risk metric, and decision tree can be mathematically audited—the opaque nature of LLMs presents a massive operational challenge. In regulated environments like finance or privacy compliance, deploying a highly accurate model is entirely unviable if we cannot explain to stakeholders or auditors *why* a specific decision was reached.
+        </p>
+        <p class="text-gray-300 leading-relaxed mb-4">
+          Researching the solutions implemented by OpenAI and Anthropic, specifically Chain-of-Thought prompting and Attention Visualization, revealed that the industry is actively shifting from "black box" outcomes to auditable reasoning trails. Designing the interactive elements for this portfolio piece allowed me to visually translate these complex concepts for non-technical audiences. 
+        </p>
+        <p class="text-gray-300 leading-relaxed">
+          This assignment reinforced my understanding that building trustworthy AI requires a dual approach: applying stringent performance validation metrics (like adversarial probing and empirical benchmarks) while simultaneously demanding architectural transparency. Moving forward in my AI career, I recognize that bridging the gap between raw algorithmic power and human-centric explainability will be just as crucial as the underlying code.
+        </p>
+      </div>
+    </section>
+
+    <div class="text-left mt-10 border-t border-zinc-800 pt-6">
+      <a href="index.html" class="text-purple-400 hover:text-white transition duration-200 font-semibold flex items-center gap-2">
+        <span>&larr;</span> Back to Portfolio Home
+      </a>
+    </div>
+
+  </main>
+
+  <footer class="text-center p-6 border-t border-zinc-800 text-sm text-zinc-500 bg-zinc-900 mt-12">
+    &copy; 2026 Chaitali Rajurkar. All rights reserved. | Master of Science in Artificial Intelligence Artifact
+  </footer>
+
+  <script>
+    // Black Box vs Glass Box Toggle
+    let isGlass = false;
+    function toggleBox() {
+      const visualBox = document.getElementById('visual-box');
+      const title = document.getElementById('box-title');
+      const desc = document.getElementById('box-desc');
+      const btn = document.getElementById('toggle-btn');
+
+      if(!isGlass) {
+        visualBox.className = "box-visual glass-box w-full max-w-lg";
+        visualBox.innerHTML = "Input ➔ <span class='text-cyan-300 text-sm font-mono mx-4'>[Weights & Attention Maps Visible]</span> ➔ Output";
+        title.innerText = "The 'Glass Box' Paradigm (XAI)";
+        desc.innerText = "Explainable AI strives to make the internal mechanics transparent. By using visualization tools and probing techniques, we can audit the pathways that lead to specific outputs.";
+        btn.innerText = "Revert to Black Box";
+        btn.style.background = "#06b6d4";
+        isGlass = true;
+      } else {
+        visualBox.className = "box-visual black-box w-full max-w-lg";
+        visualBox.innerHTML = "Input ➔ [ ? ? ? ] ➔ Output";
+        title.innerText = "The 'Black Box' Paradigm";
+        desc.innerText = "Currently, most deep learning models operate opaquely. Billions of parameters interact in non-linear ways, making it impossible for humans to trace the exact pathway of a single output.";
+        btn.innerText = "Transform to Glass Box";
+        btn.style.background = "#a855f7";
+        isGlass = false;
+      }
+    }
+
+    // Chain of Thought Animation
+    let step = 1;
+    function revealCoT() {
+      if(step <= 3) {
+        document.getElementById('step' + step).style.display = 'block';
+        step++;
+      }
+      if(step > 3) {
+        document.getElementById('cot-btn').style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
