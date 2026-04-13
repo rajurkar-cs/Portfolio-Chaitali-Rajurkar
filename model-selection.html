@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pre-Trained Model Selection | Chaitali Rajurkar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f172a; 
+      color: #e2e8f0;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    header {
+      background: radial-gradient(circle at top right, #4c1d95, #0f172a);
+      padding: 4rem 10%;
+      border-bottom: 2px solid #f59e0b;
+      box-shadow: 0 4px 30px rgba(245, 158, 11, 0.15);
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #fbd38d; 
+      border-bottom: 1px solid #1e293b;
+      padding-bottom: 0.5rem;
+    }
+
+    /* Glass Panels */
+    .glass-panel {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+
+    /* Domain Filters */
+    .filter-container {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: #1e293b;
+      border: 1px solid #334155;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #94a3b8;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover { background: #334155; color: #fff; }
+    .filter-btn.active {
+      background: #f59e0b;
+      color: #0f172a;
+      border-color: #f59e0b;
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+    }
+
+    /* Matrix Cards */
+    .model-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: none; /* Hidden by default, controlled by JS */
+      animation: fadeIn 0.4s ease-in-out;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .model-card.show {
+      display: block;
+    }
+
+    .model-card:hover {
+      transform: translateY(-5px);
+      border-color: #f59e0b;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Metric Bars */
+    .metric-row { margin-bottom: 0.75rem; }
+    .metric-label { display: flex; justify-content: space-between; font-size: 0.85rem; color: #cbd5e1; margin-bottom: 0.25rem; font-weight: 600; }
+    .metric-bar-bg { background: #0f172a; height: 8px; border-radius: 4px; overflow: hidden; }
+    .metric-bar-fill { height: 100%; border-radius: 4px; transition: width 1s ease-out; }
+    
+    .bar-acc { background: #34d399; } /* Green */
+    .bar-spd { background: #60a5fa; } /* Blue */
+    .bar-size { background: #f43f5e; } /* Red (Lower is better for size, but we map raw scale) */
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+    .badge-nlp { background: rgba(139, 92, 246, 0.2); color: #c4b5fd; border: 1px solid #8b5cf6; }
+    .badge-vis { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid #10b981; }
+    .badge-tab { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid #f59e0b; }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="max-w-6xl mx-auto">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-white">Portfolio Artifact 5: Model Selection</h1>
+      <p class="text-xl text-purple-200">Evaluating Trade-offs in Size, Speed, Accuracy, and Explainability.</p>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-10">
+
+    <section class="mb-12">
+      <h2 class="section-title">1. The "Iron Triangle" of AI Architecture</h2>
+      <p class="text-lg text-gray-300 mb-6">
+        In enterprise AI, there is rarely a single "best" model. Architects must navigate the trade-offs between <strong>Accuracy</strong> (how correct the model is), <strong>Inference Speed</strong> (how fast it responds), and <strong>Model Size</strong> (the memory and compute required). Maximizing one usually comes at the expense of the others.
+      </p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass-panel border-t-4 border-emerald-400">
+          <h3 class="text-xl font-bold text-white mb-2">Accuracy</h3>
+          <p class="text-sm text-gray-400">Essential for high-stakes environments like healthcare or finance. However, achieving state-of-the-art accuracy usually requires billions of parameters, drastically increasing costs and latency.</p>
+        </div>
+        <div class="glass-panel border-t-4 border-blue-400">
+          <h3 class="text-xl font-bold text-white mb-2">Speed (Latency)</h3>
+          <p class="text-sm text-gray-400">Crucial for real-time applications like autonomous driving or fraud detection. High speed often requires model compression (quantization), which can degrade accuracy.</p>
+        </div>
+        <div class="glass-panel border-t-4 border-red-400">
+          <h3 class="text-xl font-bold text-white mb-2">Size (Footprint)</h3>
+          <p class="text-sm text-gray-400">Dictates where a model can run. Massive models require cloud data centers. Small models can run on "edge devices" (like smartphones) but inherently possess less general knowledge.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="section-title">2. Pre-Trained Model Decision Matrix</h2>
+      <p class="mb-6 text-gray-400">Select a domain below to compare industry-standard pre-trained models. Observe how different architectures balance the trade-offs to serve specific use cases.</p>
+
+      <div class="filter-container">
+        <button class="filter-btn active" onclick="filterModels('all', this)">Show All Domains</button>
+        <button class="filter-btn" onclick="filterModels('nlp', this)">NLP / Generative AI</button>
+        <button class="filter-btn" onclick="filterModels('vision', this)">Computer Vision</button>
+        <button class="filter-btn" onclick="filterModels('tabular', this)">Tabular Data</button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="model-grid">
+        
+        <div class="model-card show nlp">
+          <span class="badge badge-nlp">NLP / Generative</span>
+          <h3 class="text-2xl font-bold text-white mb-1">GPT-4</h3>
+          <p class="text-sm text-gray-400 mb-4">OpenAI (MoE Architecture)</p>
+          
+          <div class="metric-row">
+            <div class="metric-label"><span>Accuracy / Capability</span><span>State-of-the-Art</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill bar-acc" style="width: 98%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label"><span>Inference Speed</span><span>Slow (High Latency)</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill bar-spd" style="width: 30%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label"><span>Model Size</span><span>~1.76 Trillion Params</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill bar-size" style="width: 95%;"></div></div>
+          </div>
+          
+          <div class="mt-4 pt-4 border-t border-slate-700">
+            <p class="text-xs text-gray-300"><strong>Best For:</strong> Complex reasoning, coding, and open-ended text generation. <br><strong class="text-red-400">Explainability:</strong> Low (Black Box).</p>
+          </div>
+        </div>
+
+        <div class="model-card show nlp">
+          <span class="badge badge-nlp">NLP / Classification</span>
+          <h3 class="text-2xl font-bold text-white mb-1">DistilBERT</h3>
+          <p class="text-sm text-gray-400 mb-4">Hugging Face</p>
+          
+          <div class="metric-row">
+            <div class="metric-label"><span>Accuracy / Capability</span><span>High (Task-Specific)</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill bar-acc" style="width: 85%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label"><span>Inference Speed</span><span>Very Fast</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill bar-spd" style="width: 90%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label"><span>Model Size</span><span>~66 Million Params</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill bar-size" style="width: 15%;"></div></div>
+          </div>
+          
+          <div class="mt-4 pt-4 border-t border-slate-700">
+            <p class="text-xs text-gray-300"><strong>Best For:</strong> Real-time sentiment analysis and document routing where speed trumps generative ability. <br><strong class="text-yellow-400">Explainability:</strong> Medium (Attention Mapping).</p>
+          </div>
+        </div>
+
+        <div class="model-card show vision">
+          <span class="badge badge-vis">Computer Vision</span>
+          <h3 class="text-2xl font-bold text-white mb-1">EfficientNet-B7</h3>
+          <p class="text-sm text-gray-400 mb-4">Google Research</p>
+          
+          <div class="metric-row">
+            <div class="metric-label"><span>Accuracy</span><span>High (ImageNet SOTA)</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill bar-acc" style="width: 94%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label"><span>Inference Speed</span><span>Moderate / Slow</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill bar-spd" style="width: 45%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label"><span>Model Size</span><span>~66 Million Params</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill bar-size" style="width: 60%;"></div></div>
+          </div>
+          
+          <div class="mt-4 pt-4 border-t border-slate-700">
+            <p class="text-xs text-gray-300"><strong>Best For:</strong> Medical imaging diagnostics or satellite analysis where accuracy is prioritized over speed. <br><strong class="text-yellow-400">Explainability:</strong> Medium (Grad-CAM).</p>
+          </div>
+        </div>
+
+        <div class="model-card show vision">
+          <span class="badge badge-vis">Computer Vision</span>
+          <h3 class="text-2xl font-bold text-white mb-1">MobileNetV3</h3>
+          <p class="text-sm text-gray-400 mb-4">Google (Optimized for Edge)</p>
+          
+          <div class="metric-row">
+            <div class="metric-label"><span>Accuracy</span><span>Moderate</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill bar-acc" style="width: 72%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label"><span>Inference Speed</span><span>Ultra Fast</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill bar-spd" style="width: 98%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label"><span>Model Size</span><span>~5 Million Params</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill bar-size" style="width: 5%;"></div></div>
+          </div>
+          
+          <div class="mt-4 pt-4 border-t border-slate-700">
+            <p class="text-xs text-gray-300"><strong>Best For:</strong> Smartphone apps, AR filters, and IoT cameras requiring local, real-time processing. <br><strong class="text-yellow-400">Explainability:</strong> Medium.</p>
+          </div>
+        </div>
+
+        <div class="model-card show tabular">
+          <span class="badge badge-tab">Tabular Data</span>
+          <h3 class="text-2xl font-bold text-white mb-1">XGBoost</h3>
+          <p class="text-sm text-gray-400 mb-4">Gradient Boosting</p>
+          
+          <div class="metric-row">
+            <div class="metric-label"><span>Accuracy</span><span>Very High</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill bar-acc" style="width: 92%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label"><span>Inference Speed</span><span>Fast</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill bar-spd" style="width: 85%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label"><span>Model Size</span><span>Very Small</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill bar-size" style="width: 10%;"></div></div>
+          </div>
+          
+          <div class="mt-4 pt-4 border-t border-slate-700">
+            <p class="text-xs text-gray-300"><strong>Best For:</strong> Financial risk modeling, customer churn, and structured database predictions. <br><strong class="text-green-400">Explainability:</strong> High (Feature Importance/SHAP).</p>
+          </div>
+        </div>
+
+        <div class="model-card show tabular">
+          <span class="badge badge-tab">Tabular Data</span>
+          <h3 class="text-2xl font-bold text-white mb-1">LightGBM</h3>
+          <p class="text-sm text-gray-400 mb-4">Microsoft (Leaf-wise growth)</p>
+          
+          <div class="metric-row">
+            <div class="metric-label"><span>Accuracy</span><span>High</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill bar-acc" style="width: 89%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label"><span>Inference Speed</span><span>Ultra Fast</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill bar-spd" style="width: 95%;"></div></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label"><span>Model Size</span><span>Small</span></div>
+            <div class="metric-bar-bg"><div class="metric-bar-fill bar-size" style="width: 12%;"></div></div>
+          </div>
+          
+          <div class="mt-4 pt-4 border-t border-slate-700">
+            <p class="text-xs text-gray-300"><strong>Best For:</strong> High-frequency trading or massive datasets where training/inference speed is paramount. <br><strong class="text-green-400">Explainability:</strong> High (SHAP Support).</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="mb-12 mt-16 border-t border-slate-800 pt-10">
+      <h2 class="section-title">Insights & Strategic Application</h2>
+      <div class="p-8 bg-transparent"> 
+        <p class="text-gray-300 leading-relaxed mb-4">
+          The core lesson of modern AI architecture is that bigger is not inherently better; it is simply more capable at the cost of operational efficiency. My analysis of these pre-trained models highlights that successful AI deployment requires aligning the model's physical constraints with the business objective. 
+        </p>
+        <p class="text-gray-300 leading-relaxed mb-4">
+          For instance, in the computer vision domain, deploying a massive architecture like EfficientNet-B7 is logical for analyzing medical X-rays on a secure server where accuracy is a matter of life and death, and latency is acceptable. Conversely, deploying that same model for real-time augmented reality on a smartphone is impossible; MobileNetV3 is required, sacrificing marginal accuracy for edge-deployment viability.
+        </p>
+        <p class="text-gray-300 leading-relaxed">
+          Furthermore, the domain significantly dictates the explainability framework. Tabular models like XGBoost remain the gold standard in finance and compliance specifically because they offer high accuracy alongside native feature importance and SHAP value integrations. As I transition into building scalable AI solutions, utilizing decision matrices like this ensures that I select infrastructure that balances computational cost, latency requirements, and regulatory transparency.
+        </p>
+      </div>
+    </section>
+
+    <div class="text-left mt-10 border-t border-slate-800 pt-6">
+      <a href="index.html" class="text-amber-500 hover:text-white transition duration-200 font-semibold flex items-center gap-2">
+        <span>&larr;</span> Back to Portfolio Home
+      </a>
+    </div>
+
+  </main>
+
+  <footer class="text-center p-6 border-t border-slate-800 text-sm text-slate-500 bg-slate-900 mt-12">
+    &copy; 2026 Chaitali Rajurkar. All rights reserved. | Master of Science in Artificial Intelligence Artifact
+  </footer>
+
+  <script>
+    function filterModels(domain, btnElement) {
+      // Update buttons
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      btnElement.classList.add('active');
+
+      // Filter logic
+      const cards = document.querySelectorAll('.model-card');
+      cards.forEach(card => {
+        if (domain === 'all') {
+          card.classList.add('show');
+        } else {
+          if (card.classList.contains(domain)) {
+            card.classList.add('show');
+          } else {
+            card.classList.remove('show');
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
