@@ -306,16 +306,49 @@
     </section>
 
     <section class="mb-12 mt-16 border-t border-slate-800 pt-10">
-      <h2 class="section-title">Insights & Strategic Application</h2>
+      <h2 class="section-title">3. Documentation & Findings</h2>
+      <div class="p-8 bg-slate-800/30 rounded-xl border border-slate-800 shadow-lg space-y-8"> 
+        
+        <div>
+          <h3 class="text-xl font-bold text-amber-400 mb-2">Methodology & Selection</h3>
+          <p class="text-gray-300 leading-relaxed">
+            To construct this decision matrix, I selected six industry-standard models spanning three primary domains: Natural Language Processing (GPT-4, DistilBERT), Computer Vision (EfficientNet-B7, MobileNetV3), and Tabular Data (XGBoost, LightGBM). Data regarding model parameter sizes, benchmark accuracies, and latency footprints were synthesized from standard developer documentation (e.g., Hugging Face, Google Research) and general AI benchmarking platforms.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-bold text-amber-400 mb-2">Analysis & Recommendations</h3>
+          <p class="text-gray-300 leading-relaxed mb-3">
+            The interactive matrix clearly contrasts how different architectures optimize for specific goals. Based on the trade-offs, I recommend the following applications:
+          </p>
+          <ul class="list-disc pl-6 text-gray-300 space-y-2">
+            <li><strong>NLP / Generative:</strong> GPT-4 offers state-of-the-art capability but suffers from massive latency, size, and poor explainability. It is recommended for complex, offline generative tasks. DistilBERT is recommended for high-volume, real-time routing or sentiment tasks where speed is paramount.</li>
+            <li><strong>Computer Vision:</strong> EfficientNet-B7 optimizes for highest accuracy, recommended for server-side medical or satellite imagery analysis. MobileNetV3 sacrifices accuracy for an ultra-small footprint, making it mandatory for edge computing and mobile devices.</li>
+            <li><strong>Tabular Data:</strong> XGBoost and LightGBM both offer excellent speed and accuracy for structured data. However, they are highly recommended for finance and risk modeling because they inherently support robust explainability frameworks like SHAP values, mitigating the "black box" problem.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-bold text-amber-400 mb-2">Conclusion</h3>
+          <p class="text-gray-300 leading-relaxed">
+            The core lesson of modern AI architecture is that bigger is not inherently better; it is simply more capable at the cost of operational efficiency. Successful AI deployment requires aligning the model's physical constraints with the business objective.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="mb-12 mt-12 border-t border-slate-800 pt-10">
+      <h2 class="section-title">4. Insights & Strategic Application</h2>
       <div class="p-8 bg-transparent"> 
         <p class="text-gray-300 leading-relaxed mb-4">
-          The core lesson of modern AI architecture is that bigger is not inherently better; it is simply more capable at the cost of operational efficiency. My analysis of these pre-trained models highlights that successful AI deployment requires aligning the model's physical constraints with the business objective. 
+          Building this decision matrix reinforced a critical perspective for my transition into AI: an AI architect's primary job is constraint management. While the industry heavily markets massive, trillion-parameter models, analyzing architectures like MobileNetV3 and DistilBERT highlighted that in enterprise production environments, speed, memory, and cost constraints frequently outrank raw capability.
         </p>
         <p class="text-gray-300 leading-relaxed mb-4">
-          For instance, in the computer vision domain, deploying a massive architecture like EfficientNet-B7 is logical for analyzing medical X-rays on a secure server where accuracy is a matter of life and death, and latency is acceptable. Conversely, deploying that same model for real-time augmented reality on a smartphone is impossible; MobileNetV3 is required, sacrificing marginal accuracy for edge-deployment viability.
+          For instance, deploying a massive architecture like EfficientNet-B7 is logical for analyzing medical X-rays on a secure server where accuracy is a matter of life and death, and latency is acceptable. Conversely, deploying that same model for real-time augmented reality on a smartphone is impossible; edge-optimized models are required, sacrificing marginal accuracy for viability.
         </p>
         <p class="text-gray-300 leading-relaxed">
-          Furthermore, the domain significantly dictates the explainability framework. Tabular models like XGBoost remain the gold standard in finance and compliance specifically because they offer high accuracy alongside native feature importance and SHAP value integrations. As I transition into building scalable AI solutions, utilizing decision matrices like this ensures that I select infrastructure that balances computational cost, latency requirements, and regulatory transparency.
+          Furthermore, the domain significantly dictates the explainability framework. Tabular models like XGBoost remain the gold standard in finance specifically because they offer high accuracy alongside native feature importance, mitigating the "black box" problem. Utilizing decision matrices ensures that I select infrastructure that balances computational cost, latency requirements, and regulatory transparency.
         </p>
       </div>
     </section>
